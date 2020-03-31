@@ -49654,14 +49654,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/sass/ddt.scss":
+/*!*********************************!*\
+  !*** ./resources/sass/ddt.scss ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!***************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/ddt.scss ./resources/sass/app.scss ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\wamp64\www\vla-ddt\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\wamp64\www\vla-ddt\resources\sass\ddt.scss */"./resources/sass/ddt.scss");
 module.exports = __webpack_require__(/*! C:\wamp64\www\vla-ddt\resources\sass\app.scss */"./resources/sass/app.scss");
 
 

@@ -1,0 +1,42 @@
+.ddt-footer {
+  background: #f6f4f5;
+}
+
+.ddt-footer-2 {
+  background: #303e48;
+  color: white;
+}
+
+.ddt-footer-title {
+  color: #971a4b;
+  font-weight: bold;
+}
+
+#navbarSupportedContent .dropdown-item {
+  text-align: right;
+}
+
+#navbarDropdown {
+  text-align: right;
+}
+
+.navbar-light .navbar-brand {
+  font-size: x-large;
+}
+
+.navbar-light .navbar-brand.ddt-title {
+  color: #971a4b;
+}
+
+.navbar-light .navbar-brand.ddt-title-black {
+  color: black;
+}
+
+.ddt-title {
+  color: #971a4b;
+}
+
+.ddt-title-black {
+  color: black;
+}
+

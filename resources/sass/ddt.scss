@@ -1,0 +1,52 @@
+$ddt-red: #971a4b;
+$ddt-footer-grey: #303e48;
+$ddt-footer-lightgrey: #f6f4f5;
+
+.ddt-footer
+{
+    background: $ddt-footer-lightgrey;
+}
+
+.ddt-footer-2
+{
+    background: $ddt-footer-grey;
+    color: white;
+}
+
+.ddt-footer-title
+{
+    color: $ddt-red;
+    font-weight: bold;
+}
+
+#navbarSupportedContent .dropdown-item
+{
+    text-align: right;
+}
+
+#navbarDropdown
+{
+    text-align: right;
+}
+
+.navbar-light .navbar-brand
+{
+    font-size: x-large;
+    &.ddt-title {
+        color: $ddt-red;
+
+    };
+    &.ddt-title-black{
+        color: black;
+    }
+}
+
+.ddt-title
+{
+    color: $ddt-red;
+};
+.ddt-title-black
+{
+    color: black;
+}
+
