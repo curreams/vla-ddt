@@ -1,90 +1,31 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Data Discovery Tool</title>
+@section('content')
+        <div class="container">
+            <div class="row justify-content-center p-3">
+                <div class="col-7">
+                    <h3 class="ddt-title">Welcome to the
+                    Data Discovery  <span class="ddt-title-black">Tool</span> </h3>
+                    <p class="ddt-title">A resource to help support effective legal
+                    service planning and development</p>
+                    <p>The Data Discovery Tool supports greater transparency
+                    across the legal assistance sector, increased collaboration
+                    in legal service planning and quality service design to meet the
+                    needs of priority groups</p>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+                    <p>Search for current data on legal assistance services, indicators
+                    of legal need and priority groups for your region of interest.
+                    Choose which visualisations are most useful for your purpose
+                    and download data in a user-friendly form.</p>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+                    <p class="ddt-title"> Who can use the Data Discovery Tool? </p>
 
-            .full-height {
-                height: 100vh;
-            }
+                    <p>The Data Discovery Tool is available to xxxxx (need to get some
+                    feedback on this). To request access, email xxxxx. </p>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+                    <p class="ddt-title">Have a suggestion on how we can improve the Data Discovery Tool?
+                    Contact us to share your ideas.</p>
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Data Dicovery Tool
-                </div>
-
             </div>
         </div>
-    </body>
-</html>
+@endsection
