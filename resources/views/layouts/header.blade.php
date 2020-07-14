@@ -32,6 +32,8 @@
                         <a class="dropdown-item" href="{{ route('logout') }}">
                             {{ __('Favorites') }}
                         </a>
+                        <a class="dropdown-item" href="{{ route('users.index') }}">Manage Users</a>
+                        <a class="dropdown-item" href="{{ route('roles.index') }}">Manage Role</a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
