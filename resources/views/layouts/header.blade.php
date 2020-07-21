@@ -32,12 +32,16 @@
                         <a class="dropdown-item" href="{{ route('logout') }}">
                             {{ __('Favorites') }}
                         </a>
-                        <a class="dropdown-item" href="{{ route('users.index') }}">Manage Users</a>
-                        <a class="dropdown-item" href="{{ route('roles.index') }}">Manage Role</a>
+                        @if (Auth::user()->isAdmin())
+                            <a class="dropdown-item" href="{{ route('users.index') }}">Manage Users</a>
+                            <a class="dropdown-item" href="{{ route('roles.index') }}">Manage Roles</a>
+                            <a class="dropdown-item" href="{{ route('filters.index') }}">Manage Filters</a>
+                            <a class="dropdown-item" href="{{ route('filter_types.index') }}">Manage Filter Types</a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        @endif
                     </div>
                 </li>
             @endguest
