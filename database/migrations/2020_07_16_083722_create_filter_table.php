@@ -16,6 +16,7 @@ class CreateFilterTable extends Migration
         Schema::create('filter_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('color',10)->default('#000000');
             $table->string('description')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

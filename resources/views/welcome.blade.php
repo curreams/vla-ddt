@@ -29,6 +29,3 @@
             </div>
         </div>
 @endsection
-@section('scripts')
-    <script src="/js/app.js?id={{ str_random(6) }}"></script>
-@endsection

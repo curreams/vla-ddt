@@ -26,6 +26,7 @@
         </main>
         @include ('layouts.footer')
     </div>
+    <script src="/js/app.js?id={{ str_random(6) }}"></script>
     @yield('scripts')
 </body>
 </html>

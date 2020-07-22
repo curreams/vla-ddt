@@ -27,3 +27,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('filters', 'FilterController');
     Route::resource('filter_types', 'FilterTypeController');
 });
+
+

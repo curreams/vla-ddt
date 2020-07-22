@@ -8,9 +8,9 @@
                 {{ session('status') }}
             </div>
         @endif
-        <example-component></example-component>
+        <filters :filter_types="{{$filter_types}}"></filters>
     </div>
 @endsection
 @section('scripts')
-    <script src="/js/app.js?id={{ str_random(6) }}"></script>
+
 @endsection

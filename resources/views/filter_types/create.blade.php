@@ -26,28 +26,33 @@
         </div>
     @endif
 
-
-
-    {!! Form::open(array('route' => 'filter_types.store','method'=>'POST')) !!}
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Name:</strong>
-                {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+    <form method="POST" action="{{ route('filter_types.store') }}" accept-charset="UTF-8" id="create_filter_type_form" name="create_filter_type_form" class="form-horizontal">
+        {{ csrf_field() }}
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Name:</strong>
+                    <input class="form-control" name="name" type="text" id="name" value="" placeholder="Enter name..." maxlength="100">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Description:</strong>
+                    <input class="form-control" name="description" type="text" id="description" value="" placeholder="Enter description..." maxlength="200">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Color:</strong>
+                    <input class="form-control" name="color" type="color" id="color" value="" >
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Description:</strong>
-                {!! Form::text('description', null, array('placeholder' => 'Description','class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </div>
+    </form>
 </div>
-{!! Form::close() !!}
 
 
 @endsection

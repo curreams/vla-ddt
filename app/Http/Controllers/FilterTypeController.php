@@ -83,7 +83,6 @@ class FilterTypeController extends Controller
             'description' => 'required',
         ]);
 
-
         $filter_type = FilterType::create(['name' => $request->input('name'),
                                     'description' => $request->input('description')]);
 

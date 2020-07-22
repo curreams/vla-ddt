@@ -45,9 +45,11 @@
         <td>
             <a class="btn btn-info" href="{{ route('filters.show',$filter->id) }}">Show</a>
             <a class="btn btn-primary" href="{{ route('filters.edit',$filter->id) }}">Edit</a>
-            {!! Form::open(['method' => 'DELETE','route' => ['filters.destroy', $filter->id],'style'=>'display:inline']) !!}
-                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-            {!! Form::close() !!}
+            <form method="POST" action="{{ route('filters.destroy', $filter->id) }}" id="destroy_filter_form" name="destroy_filter_form" accept-charset="UTF-8" style="display:inline">
+                {{ csrf_field() }}
+                <input name="_method" type="hidden" value="DELETE">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
         </td>
     </tr>
     @endforeach

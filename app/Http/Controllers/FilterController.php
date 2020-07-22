@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Filter;
 use App\Models\FilterType;
 use Illuminate\Http\Request;
+use DB;
 
 class FilterController extends Controller
 {
- /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -103,6 +104,19 @@ class FilterController extends Controller
 
         return redirect()->route('filters.index')
                         ->with('success','Filter updated successfully');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        DB::table("filters")->where('id',$id)->delete();
+        return redirect()->route('filters.index')
+                        ->with('success','Filter deleted successfully');
     }
 
 }

@@ -1,3 +1,12 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
 $ddt-red: #971a4b;
 $ddt-footer-grey: #303e48;
 $ddt-footer-lightgrey: #f6f4f5;
@@ -48,5 +57,14 @@ $ddt-footer-lightgrey: #f6f4f5;
 .ddt-title-black
 {
     color: black;
+}
+
+.ddt-filter-button
+{
+    background:none;
+    border: none;
+    cursor: pointer;
+    font-size:large;
+    font-weight: bold;
 }
 
