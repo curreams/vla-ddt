@@ -25,10 +25,10 @@ class CreateFilterTable extends Migration
 
         Schema::create('filters', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->bigInteger('type')->unsigned();
+            $table->unsignedBigInteger('type')->unsigned();
             $table->foreign('type')
             ->references('id')
             ->on('filter_types')
