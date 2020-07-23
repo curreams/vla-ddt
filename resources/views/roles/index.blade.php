@@ -40,9 +40,11 @@
                     <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
                 @endcan
                 @can('role-delete')
-                    {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                    {!! Form::close() !!}
+                    <form method="POST" action="{{ route('roles.destroy', $role->id) }}" id="destroy_role_form" name="destroy_role_form" accept-charset="UTF-8" style="display:inline">
+                        {{ csrf_field() }}
+                        <input name="_method" type="hidden" value="DELETE">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 @endcan
             </td>
         </tr>

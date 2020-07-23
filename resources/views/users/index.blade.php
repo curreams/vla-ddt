@@ -47,9 +47,11 @@
         <td>
             <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
             <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
-            {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-            {!! Form::close() !!}
+            <form method="POST" action="{{ route('users.destroy', $user->id) }}" id="destroy_user_form" name="destroy_user_form" accept-charset="UTF-8" style="display:inline">
+                {{ csrf_field() }}
+                <input name="_method" type="hidden" value="DELETE">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
         </td>
     </tr>
     @endforeach

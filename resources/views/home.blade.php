@@ -11,6 +11,4 @@
         <filters :filter_types="{{$filter_types}}"></filters>
     </div>
 @endsection
-@section('scripts')
 
-@endsection

@@ -26,7 +26,12 @@
         </main>
         @include ('layouts.footer')
     </div>
+    @include('auth.login_modal')
     <script src="/js/app.js?id={{ str_random(6) }}"></script>
-    @yield('scripts')
+    @guest
+    <script>
+        $('#login_modal').modal('show');
+    </script>
+    @endguest
 </body>
 </html>
