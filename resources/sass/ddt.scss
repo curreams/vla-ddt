@@ -74,4 +74,28 @@ $ddt-footer-lightgrey: #f6f4f5;
 .vl {
     border-left: 1px solid $ddt-red;
 }
+h3, .h3 {
+    font-size: 1.9rem;
+}
+@media screen and (min-width: 576px) {
+    .modal-lg,
+    .modal-xl {
+        max-width: 860px;
+    }
+}
 
+@media screen and (min-width: 992px) {
+    .modal-lg,
+    .modal-xl {
+        max-width: 1000px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .modal-xl {
+        max-width: 1140px;
+    }
+}
+.pull-right{
+    float: right;
+}

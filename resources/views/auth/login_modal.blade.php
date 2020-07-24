@@ -20,8 +20,7 @@
 
                         <p class="ddt-title"> Who can use the Data Discovery Tool? </p>
 
-                        <p>The Data Discovery Tool is available to xxxxx (need to get some
-                        feedback on this). To request access, email xxxxx. </p>
+                        <p>The Data Discovery Tool is available to xxxxx. To request access, email xxxxx. </p>
 
                         <p class="ddt-title">Have a suggestion on how we can improve the Data Discovery Tool?
                         Contact us to share your ideas.</p>
@@ -33,7 +32,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-8">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email-modal" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -44,10 +43,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password-modal" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-8">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password-modal" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
