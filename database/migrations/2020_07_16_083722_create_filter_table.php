@@ -27,6 +27,9 @@ class CreateFilterTable extends Migration
             $table->id();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('name');
+            $table->string('table')->nullable();
+            $table->unsignedBigInteger('surrogate_key')->unsigned();
+            $table->string('value')->nullable();
             $table->string('description')->nullable();
             $table->unsignedBigInteger('type')->unsigned();
             $table->foreign('type')
@@ -39,7 +42,6 @@ class CreateFilterTable extends Migration
             ->on('filters')
             ->onDelete('no action');
 
-            $table->string('parameter_name')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

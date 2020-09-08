@@ -41,7 +41,7 @@
         <td>{{ $filter->description }}</td>
         <td>{{ optional($filter->parent)->name }}</td>
         <td>{{ $filter->filterType->name }}</td>
-        <td>{{ $filter->parameter_name }}</td>
+        <td>{{ $filter->value }}</td>
         <td>
             <a class="btn btn-info" href="{{ route('filters.show',$filter->id) }}">Show</a>
             <a class="btn btn-primary" href="{{ route('filters.edit',$filter->id) }}">Edit</a>
@@ -54,8 +54,8 @@
     </tr>
     @endforeach
     </table>
-</div>
 
-{!! $data->render() !!}
+    {!! $data->render() !!}
+</div>
 
 @endsection

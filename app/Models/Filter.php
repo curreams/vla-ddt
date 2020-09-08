@@ -27,10 +27,12 @@ class Filter extends Model
      */
     protected $fillable = [
         'name',
+        'table',
+        'surrogate_key',
         'parent_id',
         'description',
         'type',
-        'parameter_name',
+        'value',
         'created_by',
         'updated_by'
     ];

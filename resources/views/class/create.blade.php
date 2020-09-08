@@ -69,20 +69,8 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Value:</strong>
-                    <input class="form-control" name="value" type="text" id="value" value="" placeholder="Enter value..." maxlength="100">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Table Name:</strong>
-                    <input class="form-control" name="table" type="text" id="table" value="" placeholder="Enter table name..." maxlength="100">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Surrogate Key:</strong>
-                    <input class="form-control" name="surrogate_key" type="text" id="surrogate_key" value="" placeholder="Enter surrogate key..." maxlength="100">
+                    <strong>Parameter Name:</strong>
+                    <input class="form-control" name="parameter_name" type="text" id="parameter_name" value="" placeholder="Enter parameter name..." maxlength="100">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

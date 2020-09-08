@@ -24,6 +24,19 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', 'UserController');
     Route::resource('filters', 'FilterController');
     Route::resource('filter_types', 'FilterTypeController');
+    Route::resource('class', 'ClassController');
 });
+
+// Vue JS routes
+Route::group(
+    [
+    'middleware' => ['auth'],
+    'prefix' => 'class'
+],
+    function () {
+        Route::post('/', 'ClassController@storeFilters')
+        ->name('class.storeFilters');
+    }
+);
 
 

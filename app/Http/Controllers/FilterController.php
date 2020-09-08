@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Filter;
 use App\Models\FilterType;
+
+
 use Illuminate\Http\Request;
 use DB;
 
@@ -97,10 +99,8 @@ class FilterController extends Controller
             'type' => 'required'
         ]);
         $input = $request->all();
-        dump($input);
         $filter = Filter::find($id);
         $filter->update($input);
-        dd($filter);
 
         return redirect()->route('filters.index')
                         ->with('success','Filter updated successfully');
@@ -118,5 +118,17 @@ class FilterController extends Controller
         return redirect()->route('filters.index')
                         ->with('success','Filter deleted successfully');
     }
+
+    public function  createFilters()
+    {
+        $age_groups= AgeGroup::all();
+        foreach ($age_group as $key => $age_group) {
+            $filter = [
+
+            ];
+            $filter = Filter::create($input);
+        }
+    }
+
 
 }

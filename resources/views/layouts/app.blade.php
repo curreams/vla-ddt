@@ -19,7 +19,7 @@
     <link href="{{ asset('css/ddt.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div>
         @include ('layouts.header')
         <main class="py-4">
             @yield('content')
@@ -28,6 +28,7 @@
     </div>
     @include('auth.login_modal')
     <script src="/js/app.js?id={{ str_random(6) }}"></script>
+    @yield('scripts')
     @guest
     <script>
         $('#login_modal').modal('show');
