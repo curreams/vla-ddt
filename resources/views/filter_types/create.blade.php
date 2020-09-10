@@ -43,6 +43,27 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
+                    <strong>Searchable:</strong>
+                    <br>
+                    <input class="" name="searchable" type="checkbox" id="searchable" value="true">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+
+                <div class="form-group">
+                    <strong>Show Type:</strong>
+                    <select class="form-control" id="show_type" name="show_type">
+                        <option value="" style="display: none;" disabled selected>Select show type</option>
+                        @foreach ($show_types as $key => $show_type)
+                        <option value="{{ $key }}" >
+                            {{ $show_type }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
                     <strong>Color:</strong>
                     <input class="form-control" name="color" type="color" id="color" value="" >
                 </div>

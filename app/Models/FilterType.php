@@ -12,6 +12,12 @@ class FilterType extends Model
      * @var string
      */
     protected $table = 'filter_types';
+    protected $appends = ['display'];
+
+    public function getDisplayAttribute()
+    {
+        return false;
+    }
 
     /**
     * The database primary key value.
@@ -27,6 +33,26 @@ class FilterType extends Model
      */
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'searchable',
+        'show_type',
+        'color'
     ];
+
+    /*
+    *Get Filter Type
+    */
+    public function filters()
+    {
+        return $this->hasMany('App\Models\Filter','filter_type','id');
+    }
+
+    /*
+    *Get Filter Type
+    */
+    public function showType()
+    {
+        return $this->belongsTo('App\Models\ShowType', 'show_type');
+    }
+
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\FilterType;
+use App\Models\ShowType;
+
 use DB;
 
 class FilterTypeController extends Controller
@@ -43,7 +45,8 @@ class FilterTypeController extends Controller
      */
     public function create()
     {
-        return view('filter_types.create');
+        $show_types =  ShowType::pluck('name','id')->all();
+        return view('filter_types.create', compact('show_types'));
     }
 
     /**
@@ -66,8 +69,9 @@ class FilterTypeController extends Controller
      */
     public function edit($id)
     {
+        $show_types =  ShowType::pluck('name','id')->all();
         $filter_type = FilterType::find($id);
-        return view('filter_types.edit',compact('filter_type'));
+        return view('filter_types.edit',compact('filter_type','show_types'));
     }
 
     /**
@@ -82,10 +86,13 @@ class FilterTypeController extends Controller
             'name' => 'required|unique:filter_types,name',
             'description' => 'required',
         ]);
-
-        $filter_type = FilterType::create(['name' => $request->input('name'),
-                                    'description' => $request->input('description')]);
-
+        $input = $request->all();
+        if(array_key_exists('searchable',$input)){
+            $input['searchable'] = true;
+        }else{
+            $input['searchable'] = false;
+        }
+        $filter_type = FilterType::create($input);
 
         return redirect()->route('filter_types.index')
                         ->with('success','Filter type created successfully');
@@ -105,11 +112,16 @@ class FilterTypeController extends Controller
             'description' => 'required',
         ]);
 
+        $input = $request->all();
 
+
+        if(array_key_exists('searchable',$input)){
+            $input['searchable'] = true;
+        }else{
+            $input['searchable'] = false;
+        }
         $filter_type = FilterType::find($id);
-        $filter_type->name = $request->input('name');
-        $filter_type->description = $request->input('description');
-        $filter_type->save();
+        $filter->update($input);
 
 
         return redirect()->route('filter_types.index')

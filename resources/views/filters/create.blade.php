@@ -57,7 +57,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Filter Type:</strong>
-                    <select class="form-control" id="type" name="type">
+                    <select class="form-control" id="filter_type" name="filter_type">
                         <option value="" style="display: none;" disabled selected>Select type</option>
                         @foreach ($filter_types as $key => $filter_type)
                         <option value="{{ $key }}">

@@ -48,8 +48,8 @@
     </tr>
     @endforeach
     </table>
+    {!! $data->render() !!}
 </div>
 
-{!! $data->render() !!}
 
 @endsection

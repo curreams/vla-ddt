@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\FilterType;
 use App\Models\Filter;
+use App\Models\ShowType;
 /*CLASS Models*/
 use App\Models\AgeGroup;
 use App\Models\Centre;
@@ -26,41 +27,63 @@ class CreateFiltersSeeder extends Seeder
      */
     public function run()
     {
+        //Create  Show Types
+        $show_type = [
+            'name' => 'Cramped'
+        ];
+
+        $show_type_cr = ShowType::create($show_type);
+        $show_type = [];
+        $show_type = [
+            'name' => 'Expandable'
+        ];
+        $show_type_ex = ShowType::create($show_type);
+
         //Create Filter Types
-        $filterTypes = [
+        $filter_types = [
             [
                 'name'=> 'Location',
                 'description' => 'Location filter',
+                'searchable'=> true,
+                'show_type' => $show_type_ex->id,
                 'color' => '#0220A8',
                 'created_by' => 'Admin'
             ],
             [
                 'name'=> 'Service provider',
                 'description' => 'Service provider filter',
+                'searchable'=> true,
+                'show_type' => $show_type_ex->id,
                 'color' => '#43BCE0',
                 'created_by' => 'Admin'
             ],
             [
                 'name'=> 'Area of law',
                 'description' => 'Area of law filter',
+                'searchable'=> false,
+                'show_type' => $show_type_cr->id,
                 'color' => '#245904',
                 'created_by' => 'Admin'
             ],
             [
                 'name'=> 'Client demographics',
                 'description' => 'Client demographics filter',
+                'searchable'=> false,
+                'show_type' => $show_type_ex->id,
                 'color' => '#6EB8B4',
                 'created_by' => 'Admin'
             ],
             [
                 'name'=> 'Date range',
                 'description' => 'Date range filter',
+                'searchable'=> false,
+                'show_type' => $show_type_cr->id,
                 'color' => '#B858C7',
                 'created_by' => 'Admin'
             ]
         ];
-        foreach ($filterTypes as $filterType) {
-            FilterType::create($filterType);
+        foreach ($filter_types as $filter_type) {
+            FilterType::create($filter_type);
         }
         // Create Filter based on Class Dimensions
         self::createFilters();
@@ -71,17 +94,44 @@ class CreateFiltersSeeder extends Seeder
     {
         $filter_type_demographics=FilterType::where('name', '=', 'Client demographics')->firstOrFail();
         $filter_type_service_provider=FilterType::where('name', '=', 'Service provider')->firstOrFail();
+        $filter_type_area_of_law=FilterType::where('name', '=', 'Area of law')->firstOrFail();
         $filter_type_location=FilterType::where('name', '=', 'Location')->firstOrFail();
+        $filter_type_date_range=FilterType::where('name', '=', 'Date range')->firstOrFail();
+        $filter= [];
+        $filter = [
+            'name' => "Comunity legal centres",
+            'table' => "NoTable",
+            'surrogate_key' => 0,
+            'value' => "Comunity legal centres",
+            'description' => 'Comunity legal centres parent',
+            'filter_type' => $filter_type_service_provider->id,
+            'created_by' => 'seeder',
+            'updated_by' => 'seeder'
+        ];
+        $filter_service_provider = Filter::create($filter);
+        $filter= [];
+        $filter = [
+            'name' => "Area of law",
+            'table' => "NoTable",
+            'surrogate_key' => 0,
+            'value' => "Area of law",
+            'description' => 'Area of law parent',
+            'filter_type' => $filter_type_area_of_law->id,
+            'created_by' => 'seeder',
+            'updated_by' => 'seeder'
+        ];
+        $filter_area_of_law = Filter::create($filter);
         self::createAgeGroup($filter_type_demographics->id);
-        self::createCentre($filter_type_service_provider->id);
+        self::createCentre($filter_type_service_provider->id, $filter_service_provider);
         self::createDisabilityMental($filter_type_demographics->id);
         self::createFinancialDisadvantage($filter_type_demographics->id);
         self::createGender($filter_type_demographics->id);
         self::createHomeless($filter_type_demographics->id);
         self::createIndigeous($filter_type_demographics->id);
-        self::createLGA($filter_type_location->id);
+        /*self::createLGA($filter_type_location->id);
         self::createLOTE($filter_type_demographics->id);
-        self::createSA2($filter_type_location->id);
+        self::createSA2($filter_type_location->id);*/
+        self::createAreaOfLaw($filter_type_area_of_law->id, $filter_area_of_law);
 
     }
 
@@ -96,14 +146,14 @@ class CreateFiltersSeeder extends Seeder
                 'surrogate_key' => $age_group->SurrogateKey,
                 'value' => $age_group->AgeGroup,
                 'description' => 'Age group '. $age_group->AgeGroup,
-                'type' => $filter_type,
+                'filter_type' => $filter_type,
                 'created_by' => 'seeder',
                 'updated_by' => 'seeder'
             ];
             Filter::create($filter);
         }
     }
-    public function createCentre($filter_type)
+    public function createCentre($filter_type, $filter_service_provider)
     {
         $centres = Centre::all();
         foreach ($centres as $key => $centre) {
@@ -111,10 +161,11 @@ class CreateFiltersSeeder extends Seeder
             $filter = [
                 'name' => $centre->SurrogateKey."-".$centre->Centre,
                 'table' => "DimCentre",
+                'parent_id'=>$filter_service_provider->id,
                 'surrogate_key' => $centre->SurrogateKey,
                 'value' => $centre->Centre,
                 'description' => 'Centre '. $centre->Centre,
-                'type' => $filter_type,
+                'filter_type' => $filter_type,
                 'created_by' => 'seeder',
                 'updated_by' => 'seeder'
             ];
@@ -132,7 +183,7 @@ class CreateFiltersSeeder extends Seeder
                 'surrogate_key' => $disability->SurrogateKey,
                 'value' => $disability->DisabilityMental,
                 'description' => 'Mental Disability '. $disability->DisabilityMental,
-                'type' => $filter_type,
+                'filter_type' => $filter_type,
                 'created_by' => 'seeder',
                 'updated_by' => 'seeder'
             ];
@@ -150,7 +201,7 @@ class CreateFiltersSeeder extends Seeder
                 'surrogate_key' => $financialDisadvantage->SurrogateKey,
                 'value' => $financialDisadvantage->FinancialDisadvantage,
                 'description' => 'Financial Disadvantage '. $financialDisadvantage->FinancialDisadvantage,
-                'type' => $filter_type,
+                'filter_type' => $filter_type,
                 'created_by' => 'seeder',
                 'updated_by' => 'seeder'
             ];
@@ -168,7 +219,7 @@ class CreateFiltersSeeder extends Seeder
                 'surrogate_key' => $gender->SurrogateKey,
                 'value' => $gender->Gender,
                 'description' => 'Gender '. $gender->Gender,
-                'type' => $filter_type,
+                'filter_type' => $filter_type,
                 'created_by' => 'seeder',
                 'updated_by' => 'seeder'
             ];
@@ -185,9 +236,9 @@ class CreateFiltersSeeder extends Seeder
                 'name' => $home->SurrogateKey."-".$home->Homeless,
                 'table' => "DimHomeless",
                 'surrogate_key' => $home->SurrogateKey,
-                'value' => $home->Gender,
+                'value' => $home->Homeless,
                 'description' => 'Homeless '. $home->Homeless,
-                'type' => $filter_type,
+                'filter_type' => $filter_type,
                 'created_by' => 'seeder',
                 'updated_by' => 'seeder'
             ];
@@ -203,9 +254,9 @@ class CreateFiltersSeeder extends Seeder
                 'name' => $indigenous->SurrogateKey."-".$indigenous->Indigenous,
                 'table' => "DimIndigenous",
                 'surrogate_key' => $indigenous->SurrogateKey,
-                'value' => $indigenous->Gender,
+                'value' => $indigenous->Indigenous,
                 'description' => 'Indigenous '. $indigenous->Indigenous,
-                'type' => $filter_type,
+                'filter_type' => $filter_type,
                 'created_by' => 'seeder',
                 'updated_by' => 'seeder'
             ];
@@ -222,9 +273,9 @@ class CreateFiltersSeeder extends Seeder
                 'name' => $value->SurrogateKey."-".$value->LGA,
                 'table' => "DimLGA",
                 'surrogate_key' => $value->SurrogateKey,
-                'value' => $value->Gender,
+                'value' => $value->LGA,
                 'description' => 'LGA '. $value->LGA,
-                'type' => $filter_type,
+                'filter_type' => $filter_type,
                 'created_by' => 'seeder',
                 'updated_by' => 'seeder'
             ];
@@ -240,9 +291,9 @@ class CreateFiltersSeeder extends Seeder
                 'name' => $value->SurrogateKey."-".$value->LOTE,
                 'table' => "DimLOTE",
                 'surrogate_key' => $value->SurrogateKey,
-                'value' => $value->Gender,
+                'value' => $value->LOTE,
                 'description' => 'LOTE '. $value->LOTE,
-                'type' => $filter_type,
+                'filter_type' => $filter_type,
                 'created_by' => 'seeder',
                 'updated_by' => 'seeder'
             ];
@@ -258,14 +309,57 @@ class CreateFiltersSeeder extends Seeder
                 'name' => $value->SurrogateKey."-".$value->SA2,
                 'table' => "DimSA2",
                 'surrogate_key' => $value->SurrogateKey,
-                'value' => $value->Gender,
+                'value' => $value->SA2,
                 'description' => 'SA2 '. $value->SA2,
-                'type' => $filter_type,
+                'filter_type' => $filter_type,
                 'created_by' => 'seeder',
                 'updated_by' => 'seeder'
             ];
             Filter::create($filter);
         }
+    }
+
+    public function createAreaOfLaw($filter_type, $filter_area_of_law)
+    {
+        $filter= [];
+        $filter = [
+            'name' => "1-FamilyLaw",
+            'table' => "NoTable",
+            'surrogate_key' => 1,
+            'parent_id' => $filter_area_of_law->id,
+            'value' => "Family Law",
+            'description' => 'Area of law Family Law',
+            'filter_type' => $filter_type,
+            'created_by' => 'seeder',
+            'updated_by' => 'seeder'
+        ];
+        Filter::create($filter);
+        $filter= [];
+        $filter = [
+            'name' => "2-CivilLaw",
+            'table' => "NoTable",
+            'surrogate_key' => 2,
+            'parent_id' => $filter_area_of_law->id,
+            'value' => "Civil Law",
+            'description' => 'Area of law Civil Law',
+            'filter_type' => $filter_type,
+            'created_by' => 'seeder',
+            'updated_by' => 'seeder'
+        ];
+        Filter::create($filter);
+        $filter= [];
+        $filter = [
+            'name' => "1-CriminalLaw",
+            'table' => "NoTable",
+            'surrogate_key' => 3,
+            'parent_id' => $filter_area_of_law->id,
+            'value' => "Criminal Law",
+            'description' => 'Area of law Criminal Law',
+            'filter_type' => $filter_type,
+            'created_by' => 'seeder',
+            'updated_by' => 'seeder'
+        ];
+        Filter::create($filter);
     }
 
 }

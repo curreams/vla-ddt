@@ -60,10 +60,10 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Filter Type:</strong>
-                    <select class="form-control" id="type" name="type">
-                        <option value="" style="display: none;" {{ old('type', optional($filter)->parent_id ?: '') == '' ? 'selected' : '' }} disabled selected>Select type</option>
+                    <select class="form-control" id="filter_type" name="filter_type">
+                        <option value="" style="display: none;" {{ old('filter_type', optional($filter)->filter_type ?: '') == '' ? 'selected' : '' }} disabled selected>Select type</option>
                         @foreach ($filter_types as $key => $filter_type)
-                        <option value="{{ $key }}" {{ (old('type', optional($filter)->type) == $key ) ? 'selected' : '' }}>
+                        <option value="{{ $key }}" {{ (old('filter_type', optional($filter)->filter_type) == $key ) ? 'selected' : '' }}>
                             {{ $filter_type }}
                         </option>
                         @endforeach

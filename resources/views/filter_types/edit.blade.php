@@ -46,6 +46,26 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
+                    <strong>Searchable:</strong>
+                    <br>
+                    <input class="" name="searchable" type="checkbox" id="searchable" value="true" @if(old('searchable', optional($filter_type)->searchable == 1)) checked @endif>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Show Type:</strong>
+                    <select class="form-control" id="show_type" name="show_type">
+                        <option value="" style="display: none;" {{ old('type', optional($filter_type)->show_type ?: '') == '' ? 'selected' : '' }} disabled selected>Select show type</option>
+                        @foreach ($show_types as $key => $show_type)
+                        <option value="{{ $key }}" {{ (old('type', optional($filter_type)->show_type) == $key ) ? 'selected' : '' }}>
+                            {{ $show_type }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
                     <strong>Color:</strong>
                     <input class="form-control" name="color" type="color" id="color" value="{{ old('description', optional($filter_type)->color) }}" >
                 </div>

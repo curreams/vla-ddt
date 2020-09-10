@@ -13,11 +13,23 @@ class CreateFilterTable extends Migration
      */
     public function up()
     {
+        Schema::create('show_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('filter_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('color',10)->default('#000000');
             $table->string('description')->nullable();
+            $table->boolean('searchable')->nullable();
+            $table->unsignedBigInteger('show_type')->unsigned();
+            $table->foreign('show_type')
+            ->references('id')
+            ->on('show_types')
+            ->onDelete('no action');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();
@@ -31,8 +43,8 @@ class CreateFilterTable extends Migration
             $table->unsignedBigInteger('surrogate_key')->unsigned();
             $table->string('value')->nullable();
             $table->string('description')->nullable();
-            $table->unsignedBigInteger('type')->unsigned();
-            $table->foreign('type')
+            $table->unsignedBigInteger('filter_type')->unsigned();
+            $table->foreign('filter_type')
             ->references('id')
             ->on('filter_types')
             ->onDelete('no action');

@@ -31,7 +31,8 @@ class Filter extends Model
         'surrogate_key',
         'parent_id',
         'description',
-        'type',
+        'searchable',
+        'filter_type',
         'value',
         'created_by',
         'updated_by'
@@ -52,6 +53,6 @@ class Filter extends Model
     */
     public function filterType()
     {
-        return $this->belongsTo('App\Models\FilterType', 'type');
+        return $this->belongsTo('App\Models\FilterType', 'filter_type');
     }
 }

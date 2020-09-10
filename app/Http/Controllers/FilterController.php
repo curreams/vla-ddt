@@ -46,7 +46,7 @@ class FilterController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
-            'type' => 'required'
+            'filter_type' => 'required'
         ]);
 
         $input = $request->all();
