@@ -479,7 +479,6 @@ class CreateFiltersSeeder extends Seeder
                 'table' => "",
                 'table_header' => "",
                 'surrogate_key' => $key,
-                'parent_id' => 0,
                 'value' => $year->year_value,
                 'description' => 'Year '. $year->year_value,
                 'filter_type' => $filter_type,
