@@ -27,7 +27,7 @@ class Centre extends Model
     /**
      * @var array
      */
-    protected $fillable = ['Centre'];
+    protected $fillable = ['Centre','Type'];
 
     /**
      * The connection name for the model.

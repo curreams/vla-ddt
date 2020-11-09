@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $filter_types = FilterType::orderBy('id','ASC')->with('filters')->get();
+        $filter_types = FilterType::orderBy('id','ASC')->with('showType')->with('filters')->with('filters.children')->get();
         return view('home',compact('filter_types'));
 
     }

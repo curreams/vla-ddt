@@ -12,6 +12,12 @@ class Filter extends Model
      * @var string
      */
     protected $table = 'filters';
+    protected $appends = ['selected'];
+
+    public function getSelectedAttribute()
+    {
+        return false;
+    }
 
     /**
     * The database primary key value.
@@ -54,5 +60,10 @@ class Filter extends Model
     public function filterType()
     {
         return $this->belongsTo('App\Models\FilterType', 'filter_type');
+    }
+
+    public function getValueAttribute($value)
+    {
+        return ucwords(strtolower($value));
     }
 }

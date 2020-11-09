@@ -40,6 +40,7 @@ class CreateFilterTable extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('name');
             $table->string('table')->nullable();
+            $table->string('table_header')->nullable();
             $table->unsignedBigInteger('surrogate_key')->unsigned();
             $table->string('value')->nullable();
             $table->string('description')->nullable();

@@ -28,6 +28,8 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 // Vue JS routes
+
+// Class. TODO
 Route::group(
     [
     'middleware' => ['auth'],
@@ -36,6 +38,20 @@ Route::group(
     function () {
         Route::post('/', 'ClassController@storeFilters')
         ->name('class.storeFilters');
+    }
+);
+
+// Search
+Route::group(
+    [
+    'middleware' => ['auth'],
+    'prefix' => 'search'
+],
+    function () {
+        Route::post('/getbarlinechart', 'SearchController@getBarLineChart')
+        ->name('search.getbarlinechart');
+        Route::post('/getpiechart', 'SearchController@getPieChart')
+        ->name('search.getpiechart');
     }
 );
 

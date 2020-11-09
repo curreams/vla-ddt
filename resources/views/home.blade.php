@@ -2,6 +2,7 @@
 
 @section('content')
 <div id="app">
+    <spiner></spiner>
     <div class="container">
         <div class="row justify-content-center">
             @if (session('status'))
@@ -10,7 +11,9 @@
             </div>
             @endif
             <filters :filter_types="{{$filter_types}}"></filters>
-            <barchar></barchar>
+            <barchart></barchart>
+            <linechart></linechart>
+            <piechart></piechart>
         </div>
     </div>
 </div>

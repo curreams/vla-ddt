@@ -101,3 +101,89 @@ h3, .h3 {
 .pull-right{
     float: right;
 }
+span.bp-dropdown__btn{
+    border: none;
+}
+.ddt-dropdown-bp__btn {
+    background:none;
+    border: none;
+    cursor: pointer;
+    font-size:large;
+    font-weight: bold;
+}
+.ddt-dropdown-bp__btn--active {
+    background: #fff;
+}
+
+
+.ddt-dropdown-bp__body {
+    width: 20rem;
+    padding: 2rem;
+
+}
+.spinner {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #eceaea;
+    z-index: 10000000;
+    opacity: 0.6;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.spinner .centered{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    color: $ddt-red;
+}
+
+.graph-button-section{
+    background: none;
+    color: $ddt-red;
+    border: none;
+}
+.graph-button-section::after{
+    display: inline-block;
+    margin-left: 7px;
+    vertical-align: 1px;
+    content: "";
+    border-top: 7px solid;
+    border-right: 5px solid transparent;
+    border-bottom: 0px;
+    border-left: 5px solid transparent;
+    /*webkit-transform: rotate(-180deg);*/
+}
+.graph-button-section:hover{
+    background: none;
+    color: $ddt-red;
+    border: none;
+}
+.graph-button-section:focus{
+    background: none;
+    color: $ddt-red;
+    border: none;
+    box-shadow: none;
+}
+.graph-button-section:active{
+    background: none;
+    color: $ddt-red;
+    border: none;
+    box-shadow: none;
+}
+.graph-button-section:not(:disabled):not(.disabled):active{
+    background: none;
+    color: $ddt-red;
+    border: none;
+    box-shadow: none;  
+}
+.pie-chart{
+    height: 400px;
+    width: 400px;
+}
+.pie-chart-comp{
+    margin: auto;
+}

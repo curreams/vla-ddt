@@ -1,0 +1,36 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "Launch & Debug",
+            "configurations": [ "Launch Program", "Launch Chrome" ]
+        }
+    ],
+    "configurations": [
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://vla-ddt",
+            "webRoot": "${workspaceRoot}"
+        },
+        {
+            "name": "Launch Edge",
+            "request": "launch",
+            "type": "pwa-msedge",
+            "url": "http://vla-ddt",
+            "webRoot": "${workspaceRoot}"
+        },
+        {
+            "type": "php",
+            "request": "launch",
+            "name": "Launch Program",
+            "cwd": "${workspaceRoot}",
+            "port": 9000
+        },
+
+
+}
