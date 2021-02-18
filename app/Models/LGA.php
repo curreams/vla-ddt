@@ -27,7 +27,7 @@ class LGA extends Model
     /**
      * @var array
      */
-    protected $fillable = ['LGA'];
+    protected $fillable = ['LGA', 'STATE_NAME_2016'];
 
     /**
      * The connection name for the model.

@@ -10,10 +10,10 @@
                 {{ session('status') }}
             </div>
             @endif
-            <filters :filter_types="{{$filter_types}}"></filters>
-            <barchart></barchart>
-            <linechart></linechart>
-            <piechart></piechart>
+            <maincomponent  :filter_types="{{$filter_types}}"
+                            :sa4="{{$SA4_filters}}"
+                            :sa3="{{$SA3_filters}}">
+            </maincomponent>
         </div>
     </div>
 </div>

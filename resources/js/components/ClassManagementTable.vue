@@ -47,7 +47,6 @@
             },
             submitInfo(){
                 var self = this;
-                //console.log(self.dimensions);
                 axios.post('/class', self.dimensions )
                 .then((response)=>{
                     console.log(response);

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\FilterType;
+use App\Models\Filter;
+use App\Models\SavedSearch;
 
 class HomeController extends Controller
 {
@@ -25,7 +27,10 @@ class HomeController extends Controller
     public function index()
     {
         $filter_types = FilterType::orderBy('id','ASC')->with('showType')->with('filters')->with('filters.children')->get();
-        return view('home',compact('filter_types'));
+        $saved_searches = SavedSearch::where('user_id',auth()->user()->id)->with('filters')->get();
+        $SA4_filters = Filter::orderBy('value','ASC')->where('table_header','SA4')->get();
+        $SA3_filters = Filter::orderBy('value','ASC')->where('table_header','SA3')->get();
+        return view('home',compact('filter_types', 'SA4_filters', 'SA3_filters'));
 
     }
 }

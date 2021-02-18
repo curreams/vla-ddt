@@ -1,0 +1,18 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
+
+/***/ "./node_modules/@revolist/revogrid/dist/esm-es5/revogr-clipboard.entry.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@revolist/revogrid/dist/esm-es5/revogr-clipboard.entry.js ***!
+  \********************************************************************************/
+/*! exports provided: revogr_clipboard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "revogr_clipboard", function() { return Clipboard; });
+/* harmony import */ var _index_c7c8ae92_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-c7c8ae92.js */ "./node_modules/@revolist/revogrid/dist/esm-es5/index-c7c8ae92.js");
+var __awaiter=undefined&&undefined.__awaiter||function(t,e,n,r){function o(t){return t instanceof n?t:new n((function(e){e(t)}))}return new(n||(n=Promise))((function(n,a){function i(t){try{c(r.next(t))}catch(t){a(t)}}function u(t){try{c(r["throw"](t))}catch(t){a(t)}}function c(t){t.done?n(t.value):o(t.value).then(i,u)}c((r=r.apply(t,e||[])).next())}))};var __generator=undefined&&undefined.__generator||function(t,e){var n={label:0,sent:function(){if(a[0]&1)throw a[1];return a[1]},trys:[],ops:[]},r,o,a,i;return i={next:u(0),throw:u(1),return:u(2)},typeof Symbol==="function"&&(i[Symbol.iterator]=function(){return this}),i;function u(t){return function(e){return c([t,e])}}function c(i){if(r)throw new TypeError("Generator is already executing.");while(n)try{if(r=1,o&&(a=i[0]&2?o["return"]:i[0]?o["throw"]||((a=o["return"])&&a.call(o),0):o.next)&&!(a=a.call(o,i[1])).done)return a;if(o=0,a)i=[i[0]&2,a.value];switch(i[0]){case 0:case 1:a=i;break;case 4:n.label++;return{value:i[1],done:false};case 5:n.label++;o=i[1];i=[0];continue;case 7:i=n.ops.pop();n.trys.pop();continue;default:if(!(a=n.trys,a=a.length>0&&a[a.length-1])&&(i[0]===6||i[0]===2)){n=0;continue}if(i[0]===3&&(!a||i[1]>a[0]&&i[1]<a[3])){n.label=i[1];break}if(i[0]===6&&n.label<a[1]){n.label=a[1];a=i;break}if(a&&n.label<a[2]){n.label=a[2];n.ops.push(i);break}if(a[2])n.ops.pop();n.trys.pop();continue}i=e.call(t,n)}catch(t){i=[6,t];o=0}finally{r=a=0}if(i[0]&5)throw i[1];return{value:i[0]?i[1]:void 0,done:true}}};var Clipboard=function(){function t(t){Object(_index_c7c8ae92_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this,t);this.copyRegion=Object(_index_c7c8ae92_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this,"copyRegion",3);this.pasteRegion=Object(_index_c7c8ae92_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this,"pasteRegion",3)}t.prototype.onPaste=function(t){var e=this.getData(t).getData("text");this.pasteRegion.emit(this.parserPaste(e));t.preventDefault()};t.prototype.copyStarted=function(t){this.copyRegion.emit(this.getData(t));t.preventDefault()};t.prototype.doCopy=function(t,e){return __awaiter(this,void 0,void 0,(function(){return __generator(this,(function(n){t.setData("text/plain",e?this.parserCopy(e):"");return[2]}))}))};t.prototype.parserCopy=function(t){return t.map((function(t){return t.join("\t")})).join("\n")};t.prototype.parserPaste=function(t){var e=[];var n=t.split("\n");for(var r in n){e.push(n[r].split("\t"))}return e};t.prototype.getData=function(t){var e;return t.clipboardData||((e=window)===null||e===void 0?void 0:e.clipboardData)};return t}();
+
+/***/ })
+
+}]);

@@ -27,9 +27,28 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('class', 'ClassController');
 });
 
+// Favorites Route
+
+
+Route::group(
+    [
+    'middleware' => ['auth'],
+    'prefix' => 'saved'
+],
+    function () {
+        Route::post('/store', 'SavedSearchesController@store')
+        ->name('saved.store');
+        Route::get('/get', 'SavedSearchesController@get')
+        ->name('saved.get');
+        Route::post('/remove/{savedSearch}', 'SavedSearchesController@remove')
+        ->name('saved.destroy')
+        ->where('id', '[0-9]+');
+    }
+);
+
 // Vue JS routes
 
-// Class. TODO
+
 Route::group(
     [
     'middleware' => ['auth'],
@@ -52,6 +71,20 @@ Route::group(
         ->name('search.getbarlinechart');
         Route::post('/getpiechart', 'SearchController@getPieChart')
         ->name('search.getpiechart');
+        Route::post('/getmapvalues', 'SearchController@getMapValues')
+        ->name('search.getmapvalues');
+    }
+);
+
+// Filter
+Route::group(
+    [
+    'middleware' => ['auth'],
+    'prefix' => 'filter'
+],
+    function () {
+        Route::post('/filterSA2', 'FilterController@filterSA2')
+        ->name('filter.filterSA2');
     }
 );
 

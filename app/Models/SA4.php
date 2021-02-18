@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $SurrogateKey
  * @property string $SA2
  */
-class SA2 extends Model
+class SA4 extends Model
 {
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'ddt.DimSA2';
+    protected $table = 'ddt.DimSA4';
 
     /**
      * The primary key for the model.
@@ -27,7 +27,7 @@ class SA2 extends Model
     /**
      * @var array
      */
-    protected $fillable = ['SA2', 'STATE_NAME_2016'];
+    protected $fillable = ['SA4', 'STATE_NAME_2016'];
 
     /**
      * The connection name for the model.

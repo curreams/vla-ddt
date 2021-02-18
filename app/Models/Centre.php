@@ -36,4 +36,9 @@ class Centre extends Model
      */
     protected $connection = 'sqlsrv';
 
+    public function getCentreAttribute($value)
+    {
+        return ucwords(strtolower($value));
+    }
+
 }

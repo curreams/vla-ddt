@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Filter;
 use App\Models\FilterType;
+use App\Models\SARelation;
 
 
 use Illuminate\Http\Request;
@@ -128,6 +129,26 @@ class FilterController extends Controller
             ];
             $filter = Filter::create($input);
         }
+    }
+
+    public function filterSA2(Request $request)
+    {
+        $SAfilters = $request->all();
+        $SA4 = [];
+        $SA3 = [];
+        foreach ($SAfilters as $key => $filter) {
+            if(strcmp($filter['table_header'], 'SA4')==0){
+                $SA4[] = $filter['surrogate_key'];
+            }
+            if(strcmp($filter['table_header'], 'SA3')==0){
+                $SA3[] = $filter['surrogate_key'];
+            }
+        }
+        $relations = SARelation::whereIn('SA4_CODE_2016', $SA4)->orWhereIn('SA3_CODE_2016', $SA3)->pluck('SA2_MAINCODE_2016')->toArray();;
+
+        $filters = Filter::where('table_header', 'SA2')->whereIn('surrogate_key', $relations)->get();
+        return $filters;
+
     }
 
 

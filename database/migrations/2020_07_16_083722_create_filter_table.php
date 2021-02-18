@@ -44,7 +44,7 @@ class CreateFilterTable extends Migration
             $table->unsignedBigInteger('surrogate_key')->unsigned();
             $table->string('value')->nullable();
             $table->string('description')->nullable();
-            $table->unsignedBigInteger('filter_type')->unsigned();
+            $table->unsignedBigInteger('filter_type')->unsigned()->nullable();
             $table->foreign('filter_type')
             ->references('id')
             ->on('filter_types')

@@ -29,15 +29,12 @@
                                             document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
-                        <a class="dropdown-item" href="{{ route('logout') }}">
-                            {{ __('Favorites') }}
-                        </a>
                         @if (Auth::user()->isAdmin())
-                            <a class="dropdown-item" href="{{ route('users.index') }}">Manage Users</a>
-                            <a class="dropdown-item" href="{{ route('roles.index') }}">Manage Roles</a>
-                            <a class="dropdown-item" href="{{ route('filters.index') }}">Manage Filters</a>
-                            <a class="dropdown-item" href="{{ route('filter_types.index') }}">Manage Filter Types</a>
-                            <a style="display: none;" class="dropdown-item" href="{{ route('class.index') }}">Manage Class Dimensions</a>
+                            <a class="dropdown-item" href="{{ route('users.index') }}">{{ __('Manage Users') }}</a>
+                            <a class="dropdown-item" href="{{ route('roles.index') }}">{{ __('Manage Roles') }}</a>
+                            <a class="dropdown-item" href="{{ route('filters.index') }}">{{ __('Manage Filters') }}</a>
+                            <a class="dropdown-item" href="{{ route('filter_types.index') }}">{{ __('Manage Filter Types') }}</a>
+                            <a style="display: none;" class="dropdown-item" href="{{ route('class.index') }}">{{ __('Manage Class Dimensions') }}</a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf

@@ -13,6 +13,15 @@ $ddt-red: #971a4b;
 $ddt-footer-grey: #303e48;
 $ddt-footer-lightgrey: #f6f4f5;
 
+body{
+    background: white;
+}
+.main-div
+{
+    width: 100%;
+}
+
+
 .ddt-footer
 {
     background: $ddt-footer-lightgrey;
@@ -109,7 +118,7 @@ span.bp-dropdown__btn{
     border: none;
     cursor: pointer;
     font-size:large;
-    font-weight: bold;
+    //font-weight: bold;
 }
 .ddt-dropdown-bp__btn--active {
     background: #fff;
@@ -178,7 +187,7 @@ span.bp-dropdown__btn{
     background: none;
     color: $ddt-red;
     border: none;
-    box-shadow: none;  
+    box-shadow: none;
 }
 .pie-chart{
     height: 400px;
@@ -187,3 +196,116 @@ span.bp-dropdown__btn{
 .pie-chart-comp{
     margin: auto;
 }
+
+.pie-multiselect{
+    width: 50%;
+}
+@media screen and (max-width: 992px) {
+    .pie-multiselect{
+        width: 100%;
+    }
+}
+
+
+.container-list {
+    display: flex;
+}
+
+.container-multiselect {
+    display: -webkit-box;
+}
+.col-list {
+    margin: 5px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.item-container-list {
+    padding: 1px;
+    margin: 1px;
+}
+
+div.vue-tags-input.ti-disabled{
+    background: transparent;
+    max-width:  100%;
+    border: 0px solid;
+    }
+
+
+div.vue-tags-input.ti-disabled div.ti-input{
+    border: 0px solid;
+}
+
+li.ti-tag.ti-valid div.ti-actions i.ti-icon-close{
+    display: none;
+}
+
+.span-active-filter{
+    font-size: large;
+    padding: 4px;
+}
+.button-clear-active-filter{
+    border: none;
+    border-radius: 20px;
+    font-size: medium;
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+.button-save-active-filter{
+    border: none;
+    border-radius: 20px;
+    font-size: medium;
+    color: white;
+    background: darkblue;
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+.button-show-saved-seach{
+    justify-content: flex-end;
+    border: solid 1px;
+    border-radius: 20px;
+    font-size: medium;
+    color: black;
+    background: white;
+}
+
+
+.tg  {border-collapse:collapse;border-spacing:0;border-color:gray;border-style:solid;border-width:1px;}
+.tg td{font-family:Arial, sans-serif;font-size:11px;
+    overflow:hidden;padding:5px 4px;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:11px;
+    font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-color{text-align:left;vertical-align:top}
+.tg .tg-value{text-align:left;vertical-align:top}
+
+
+
+.sa2-table{
+    border-color:gray;
+    border-style:solid;
+    border-width:1px;
+}
+
+.sa2-table thead th{
+    border-color:gray;
+    border-style:solid;
+    border-width:1px;
+}
+
+.sa2-table tbody th{
+    border-right:1px solid gray;
+}
+
+.sa2-table .table-title{
+    color: $ddt-red;
+}
+.sa2-table .table-title-client{
+    font-size:11px;
+}
+
+.sa2-table .table-subtitle{
+    color: $ddt-red;
+}
+

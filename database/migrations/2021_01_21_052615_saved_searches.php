@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFavoriteTables extends Migration
+class SavedSearches extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateFavoriteTables extends Migration
      */
     public function up()
     {
-        Schema::create('favorites', function (Blueprint $table) {
+        Schema::create('saved_searches', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->unsignedBigInteger('user_id');
 
@@ -30,13 +30,13 @@ class CreateFavoriteTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('favorite_has_filters', function (Blueprint $table) {
-            $table->unsignedBigInteger('favorite_id');
+        Schema::create('saved_searches_has_filters', function (Blueprint $table) {
+            $table->unsignedBigInteger('saved_searches_id');
             $table->unsignedBigInteger('filter_id');
 
-            $table->foreign('favorite_id')
+            $table->foreign('saved_searches_id')
                 ->references('id')
-                ->on('favorites')
+                ->on('saved_searches')
                 ->onDelete('cascade');
 
             $table->foreign('filter_id')
@@ -44,7 +44,7 @@ class CreateFavoriteTables extends Migration
                 ->on('filters')
                 ->onDelete('cascade');
 
-            $table->primary(['favorite_id', 'filter_id'], 'favorite_has_filters_filter_id_favorite_id_primary');
+            $table->primary(['saved_searches_id', 'filter_id'], 'saved_searches_has_filters_filter_id_saved_searches_id_primary');
         });
     }
 
@@ -55,7 +55,7 @@ class CreateFavoriteTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('favorite_has_filters');
-        Schema::dropIfExists('favorites');
+        Schema::dropIfExists('saved_searches_has_filters');
+        Schema::dropIfExists('saved_searches');
     }
 }

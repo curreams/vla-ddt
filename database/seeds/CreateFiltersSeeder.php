@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Models\FilterType;
 use App\Models\Filter;
 use App\Models\ShowType;
-/*CLASS Models*/
+
 use App\Models\AgeGroup;
 use App\Models\Centre;
 use App\Models\Gender;
@@ -15,6 +15,8 @@ use App\Models\Homeless;
 use App\Models\LGA;
 use App\Models\LOTE;
 use App\Models\SA2;
+use App\Models\SA3;
+use App\Models\SA4;
 use App\Models\ClassDimension;
 /******** */
 
@@ -46,7 +48,7 @@ class CreateFiltersSeeder extends Seeder
                 'description' => 'Location filter',
                 'searchable'=> true,
                 'show_type' => $show_type_ex->id,
-                'color' => '#0220A8',
+                'color' => '#266092',
                 'created_by' => 'Admin'
             ],
             [
@@ -54,7 +56,7 @@ class CreateFiltersSeeder extends Seeder
                 'description' => 'Service provider filter',
                 'searchable'=> true,
                 'show_type' => $show_type_ex->id,
-                'color' => '#43BCE0',
+                'color' => '#0F9AD6',
                 'created_by' => 'Admin'
             ],
             [
@@ -62,7 +64,7 @@ class CreateFiltersSeeder extends Seeder
                 'description' => 'Area of law filter',
                 'searchable'=> false,
                 'show_type' => $show_type_cr->id,
-                'color' => '#245904',
+                'color' => '#007467',
                 'created_by' => 'Admin'
             ],
             [
@@ -70,7 +72,7 @@ class CreateFiltersSeeder extends Seeder
                 'description' => 'Client demographics filter',
                 'searchable'=> false,
                 'show_type' => $show_type_ex->id,
-                'color' => '#6EB8B4',
+                'color' => '#00B4AB',
                 'created_by' => 'Admin'
             ],
             [
@@ -78,7 +80,7 @@ class CreateFiltersSeeder extends Seeder
                 'description' => 'Date range filter',
                 'searchable'=> false,
                 'show_type' => $show_type_cr->id,
-                'color' => '#B858C7',
+                'color' => '#9D57A3',
                 'created_by' => 'Admin'
             ]
         ];
@@ -220,11 +222,82 @@ class CreateFiltersSeeder extends Seeder
         ];
         $filter_indigenous= Filter::create($filter);
         self::createIndigenous($filter_type_demographics->id,$filter_indigenous);
+        $filter= [];
+        $filter = [
+            'name' => "Language Other than English",
+            'table' => "",
+            'table_header' => "LOTE",
+            'surrogate_key' => 0,
+            'value' => "Language Other than English",
+            'description' => 'Language Other than English parent',
+            'filter_type' => $filter_type_demographics->id,
+            'created_by' => 'seeder',
+            'updated_by' => 'seeder'
+        ];
+        $filter_LOTE= Filter::create($filter);
+        self::createLOTE($filter_type_demographics->id, $filter_LOTE);
         //Create date filters
         self::createDate($filter_type_date_range->id);
-        /*self::createLGA($filter_type_location->id);
-        self::createLOTE($filter_type_demographics->id);
-        self::createSA2($filter_type_location->id);*/
+        //Location
+        $filter= [];
+        $filter = [
+            'name' => "LGA",
+            'table' => "",
+            'table_header' => "LGA",
+            'surrogate_key' => 0,
+            'value' => "LGA",
+            'description' => 'LGA parent',
+            'filter_type' => $filter_type_location->id,
+            'created_by' => 'seeder',
+            'updated_by' => 'seeder'
+        ];
+        $filter_LGA = Filter::create($filter);
+        self::createLGA($filter_type_location->id, $filter_LGA);
+
+        $filter= [];
+        $filter = [
+            'name' => "SA2",
+            'table' => "",
+            'table_header' => "SA2",
+            'surrogate_key' => 0,
+            'value' => "SA2",
+            'description' => 'SA2 parent',
+            'filter_type' => $filter_type_location->id,
+            'created_by' => 'seeder',
+            'updated_by' => 'seeder'
+        ];
+        $filter_SA2 = Filter::create($filter);
+        self::createSA2($filter_type_location->id,$filter_SA2);
+
+        $filter= [];
+        $filter = [
+            'name' => "SA3",
+            'table' => "",
+            'table_header' => "SA3",
+            'surrogate_key' => 0,
+            'value' => "SA3",
+            'description' => 'SA3 parent',
+           // 'filter_type' => $filter_type_location->id,
+            'created_by' => 'seeder',
+            'updated_by' => 'seeder'
+        ];
+        $filter_SA3 = Filter::create($filter);
+        self::createSA3($filter_type_location->id,$filter_SA3);
+
+        $filter= [];
+        $filter = [
+            'name' => "SA4",
+            'table' => "",
+            'table_header' => "SA4",
+            'surrogate_key' => 0,
+            'value' => "SA4",
+            'description' => 'SA4 parent',
+            //'filter_type' => $filter_type_location->id,
+            'created_by' => 'seeder',
+            'updated_by' => 'seeder'
+        ];
+        $filter_SA4 = Filter::create($filter);
+        self::createSA4($filter_type_location->id,$filter_SA4);
 
     }
 
@@ -370,14 +443,16 @@ class CreateFiltersSeeder extends Seeder
         }
     }
 
-    public function createLGA($filter_type)
+    public function createLGA($filter_type, $filter_LGA)
     {
-        $LGA = LGA::all();
+        $LGA = LGA::where('STATE_NAME_2016', 'Victoria')->get();
         foreach ($LGA as $key => $value) {
             $filter= [];
             $filter = [
                 'name' => $value->SurrogateKey."-".$value->LGA,
                 'table' => "DimLGA",
+                'table_header' => "LGA",
+                'parent_id' => $filter_LGA->id,
                 'surrogate_key' => $value->SurrogateKey,
                 'value' => $value->LGA,
                 'description' => 'LGA '. $value->LGA,
@@ -388,7 +463,7 @@ class CreateFiltersSeeder extends Seeder
             Filter::create($filter);
         }
     }
-    public function createLOTE($filter_type)
+    public function createLOTE($filter_type, $filter_LOTE)
     {
         $LOTE = LOTE::all();
         foreach ($LOTE as $key => $value) {
@@ -396,6 +471,8 @@ class CreateFiltersSeeder extends Seeder
             $filter = [
                 'name' => $value->SurrogateKey."-".$value->LOTE,
                 'table' => "DimLOTE",
+                'table_header' => "LOTE",
+                'parent_id' => $filter_LOTE->id,
                 'surrogate_key' => $value->SurrogateKey,
                 'value' => $value->LOTE,
                 'description' => 'LOTE '. $value->LOTE,
@@ -406,14 +483,16 @@ class CreateFiltersSeeder extends Seeder
             Filter::create($filter);
         }
     }
-    public function createSA2($filter_type)
+    public function createSA2($filter_type,$filter_SA2)
     {
-        $SA2 = SA2::all();
+        $SA2 = SA2::where('STATE_NAME_2016', 'Victoria')->get();
         foreach ($SA2 as $key => $value) {
             $filter= [];
             $filter = [
                 'name' => $value->SurrogateKey."-".$value->SA2,
                 'table' => "DimSA2",
+                'table_header' => "SA2",
+                'parent_id' => $filter_SA2->id,
                 'surrogate_key' => $value->SurrogateKey,
                 'value' => $value->SA2,
                 'description' => 'SA2 '. $value->SA2,
@@ -425,12 +504,55 @@ class CreateFiltersSeeder extends Seeder
         }
     }
 
+    public function createSA3($filter_type,$filter_SA3)
+    {
+        $SA3 = SA3::where('STATE_NAME_2016', 'Victoria')->get();
+        foreach ($SA3 as $key => $value) {
+            $filter= [];
+            $filter = [
+                'name' => $value->SurrogateKey."-".$value->SA3,
+                'table' => "DimSA3",
+                'table_header' => "SA3",
+                //'parent_id' => $filter_SA3->id,
+                'surrogate_key' => $value->SurrogateKey,
+                'value' => $value->SA3,
+                'description' => 'SA3 '. $value->SA3,
+                //'filter_type' => $filter_type,
+                'created_by' => 'seeder',
+                'updated_by' => 'seeder'
+            ];
+            Filter::create($filter);
+        }
+    }
+
+    public function createSA4($filter_type,$filter_SA4)
+    {
+        $SA4 = SA4::where('STATE_NAME_2016', 'Victoria')->get();
+        foreach ($SA4 as $key => $value) {
+            $filter= [];
+            $filter = [
+                'name' => $value->SurrogateKey."-".$value->SA4,
+                'table' => "DimSA4",
+                'table_header' => "SA4",
+                //'parent_id' => $filter_SA4->id,
+                'surrogate_key' => $value->SurrogateKey,
+                'value' => $value->SA4,
+                'description' => 'SA4 '. $value->SA4,
+                //'filter_type' => $filter_type,
+                'created_by' => 'seeder',
+                'updated_by' => 'seeder'
+            ];
+            Filter::create($filter);
+        }
+    }   
+
     public function createAreaOfLaw($filter_type, $filter_area_of_law)
     {
         $filter= [];
         $filter = [
             'name' => "1-FamilyLaw",
             'table' => "",
+            'table_header' => "FamilyLaw",
             'surrogate_key' => 1,
             'parent_id' => $filter_area_of_law->id,
             'value' => "Family Law",
@@ -444,6 +566,7 @@ class CreateFiltersSeeder extends Seeder
         $filter = [
             'name' => "2-CivilLaw",
             'table' => "",
+            'table_header' => "CivilLaw",
             'surrogate_key' => 2,
             'parent_id' => $filter_area_of_law->id,
             'value' => "Civil Law",
@@ -457,6 +580,7 @@ class CreateFiltersSeeder extends Seeder
         $filter = [
             'name' => "1-CriminalLaw",
             'table' => "",
+            'table_header' => "CriminalLaw",
             'surrogate_key' => 3,
             'parent_id' => $filter_area_of_law->id,
             'value' => "Criminal Law",
@@ -477,8 +601,8 @@ class CreateFiltersSeeder extends Seeder
             $filter = [
                 'name' => $key . "-" . $year->year_value,
                 'table' => "",
-                'table_header' => "",
-                'surrogate_key' => $key,
+                'table_header' => "StartDate",
+                'surrogate_key' => $year->year_value,
                 'value' => $year->year_value,
                 'description' => 'Year '. $year->year_value,
                 'filter_type' => $filter_type,

@@ -12,12 +12,9 @@ class Filter extends Model
      * @var string
      */
     protected $table = 'filters';
-    protected $appends = ['selected'];
+    protected $appends = ['selected', 'color'];
 
-    public function getSelectedAttribute()
-    {
-        return false;
-    }
+
 
     /**
     * The database primary key value.
@@ -61,9 +58,31 @@ class Filter extends Model
     {
         return $this->belongsTo('App\Models\FilterType', 'filter_type');
     }
+    public function savedSearches()
+    {
+        return $this->belongsToMany('App\Models\SavedSearch', 'saved_searches_has_filters', 'filter_id','saved_searches_id');
+    }
+    public function getSelectedAttribute()
+    {
+        return false;
+    }
+    public function getColorAttribute()
+    {
+        $filter_type = FilterType::find($this->filter_type, 'color');
+        return $filter_type["color"];
+    }
 
     public function getValueAttribute($value)
     {
+        if(strcmp($value, "LGA")==0 || self::startsWith($value, "SA") ){
+            return $value;
+        }
         return ucwords(strtolower($value));
+    }
+
+
+    private function startsWith( $haystack, $needle ) {
+        $length = strlen( $needle );
+        return substr( $haystack, 0, $length ) === $needle;
     }
 }
