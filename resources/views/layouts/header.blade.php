@@ -36,10 +36,10 @@
                             <a class="dropdown-item" href="{{ route('filter_types.index') }}">{{ __('Manage Filter Types') }}</a>
                             <a style="display: none;" class="dropdown-item" href="{{ route('class.index') }}">{{ __('Manage Class Dimensions') }}</a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
                         @endif
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </div>
                 </li>
             @endguest
