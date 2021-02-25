@@ -126,6 +126,31 @@
                                 });
                             }
                             break;
+                        case 'table':
+                            self.showLoader();
+                            url = url+"gettable";
+                            let params = [val, "SA2"];
+                            axios.post(url, params )
+                            .then((response)=>{
+                                //EventBus.$emit("TABLE", response.data);
+                                console.log(response.data);
+                                self.table_graph = response.data;
+                                //Array.prototype.forEach.call(self.table_graph.data, locations => {
+                                //    console.log(locations);
+                                //});
+
+                            })
+                            .catch(error => {
+                                if (typeof error.response.data === 'object') {
+                                    self.errors = _.flatten(_.toArray(error.response.data.errors));
+                                } else {
+                                    self.errors = ['Something went wrong. Please try again.'];
+                                }
+                            })
+                            .finally(() => {
+                                self.hideLoader();
+                            });
+                            break;
                         default:
                             break;
                     }
@@ -233,7 +258,15 @@
                 set(value){
                     this.$store.commit("update_providers",value);
                 }
-            }
+            },
+            table_graph:{
+                get(){
+                    return this.$store.getters.table_graph;
+                },
+                set(value){
+                    this.$store.commit("update_table_graph",value);
+                }
+            },
         },
         mounted() {
             this.loadSearchListener();

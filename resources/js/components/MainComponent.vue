@@ -5,6 +5,7 @@
 			<activefilters></activefilters>
 			<filters :filter_types="filter_types" :sa4="sa4" :sa3="sa3"></filters>
 			<heatmap :filter_types="filter_types"></heatmap>
+			<tablechart></tablechart>
 			<barchart></barchart>
 			<linechart></linechart>
 			<piechart></piechart>

@@ -16,6 +16,7 @@ Vue.component('filterlist', require('./components/FilterList.vue').default);
 Vue.component('activefilters', require('./components/ActiveFilters.vue').default);
 Vue.component('savedsearches', require('./components/SavedSearches.vue').default);
 Vue.component('heatmap', require('./components/HeatMap.vue').default);
+Vue.component('tablechart', require('./components/Table.vue').default);
 
 
 const store = new Vuex.Store({
@@ -27,6 +28,7 @@ const store = new Vuex.Store({
         map_data:null,
         location_display: [],
         providers: [],
+        table_graph: [],
     },
     mutations:{
         add_active_charts(state, payload){
@@ -83,6 +85,9 @@ const store = new Vuex.Store({
         update_providers(state, filters){
             state.providers = filters
         },
+        update_table_graph(state, table){
+            state.table_graph = table
+        },
     },
     actions:{
 
@@ -108,6 +113,9 @@ const store = new Vuex.Store({
         },
         providers(state){
             return state.providers;
+        },
+        table_graph(state){
+            return state.table_graph;
         }
     }
 

@@ -73,6 +73,8 @@ Route::group(
         ->name('search.getpiechart');
         Route::post('/getmapvalues', 'SearchController@getMapValues')
         ->name('search.getmapvalues');
+        Route::post('/gettable', 'SearchController@getTable')
+        ->name('search.gettable');
     }
 );
 

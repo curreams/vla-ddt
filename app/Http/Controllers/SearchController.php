@@ -12,6 +12,7 @@ use App\Models\DisabilityMental;
 use App\Models\IndigenousStatus;
 use App\Models\Homeless;
 use App\Models\LOTE;
+use App\Models\SA2;
 
 use RecursiveIteratorIterator;
 use RecursiveArrayIterator;
@@ -66,6 +67,48 @@ class SearchController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getTable(Request $request)
+    {
+        ini_set('memory_limit', -1);
+        try {
+            $params = $request->all();
+            $filters = $params[0];
+            $groupBy = $params[1];
+
+            return self::constructTableData($filters, $groupBy);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+    }
+
+    private function constructTableData($filters, $groupBy)
+    {
+        $result = [];
+        $filter_type_aol = FilterType::where('name', '=', 'Area of law')->firstOrFail();
+        $filter_type_sp = FilterType::where('name', '=', 'Service provider')->firstOrFail();
+        $filter_type_loc = FilterType::where('name', '=', 'Location')->firstOrFail();
+        $where_values = self::getWhereValue($filters, $filter_type_aol);
+        $select_values = self::getSelectValueTable($filters,$groupBy,$filter_type_aol,$filter_type_sp, $filter_type_loc);
+        if(!empty($select_values)){
+            $data_view = new DataView;
+            $data_view = $data_view->selectRaw($select_values);
+            foreach ($where_values as $key => $where_value) {
+                $data_view = $data_view->whereIn($key, $where_value);
+            }
+            $data_view = $data_view ->groupBy($groupBy, 'Centre', 'StartDateYear' )
+                                    ->orderBy($groupBy)
+                                    ->orderBy('Centre')
+                                    ->orderBy('StartDateYear')
+                                    ->get()
+                                    ->toArray();
+            $result = self::createTableData($data_view,$groupBy);
+        }
+        return $result;
+    }
+
+
 
     public function getMapProperties($filters, $groupBy){
         $result = [];
@@ -257,15 +300,41 @@ class SearchController extends Controller
         $aol_filters = [];
         $sp_filters = false;
         foreach ($filters as $key => $filter) {
-            if($filter["filter_type"] == $filter_type_sp->id){
-                $sp_filters[] = $filter["table_header"];
+            if($filter["filter_type"] == $filter_type_aol->id){
+                $aol_filters[] = $filter["table_header"];
             }
-            if($filter["filter_type"] == $filter_type_aol->id) {
+            if($filter["filter_type"] == $filter_type_sp->id) {
                 $sp_filters = true;
             }
         }
         if($sp_filters){
             $select_value = "Centre, ";
+            if(empty($aol_filters)){
+                $select_value .=  "SUM(FamilyLaw + CivilLaw +  CriminalLaw) as Total";
+            } else {
+                $select_value .= "SUM(" .implode(" + ", $aol_filters). ") as Total";
+            }
+        }
+        return $select_value;
+    }
+
+    private function getSelectValueTable($filters,$groupBy,$filter_type_aol,$filter_type_sp,$filter_type_loc){
+        $select_value = "";
+        $aol_filters = [];
+        $sp_filters = false;
+        foreach ($filters as $key => $filter) {
+            if($filter["filter_type"] == $filter_type_aol->id){
+                $aol_filters[] = $filter["table_header"];
+            }
+            if($filter["filter_type"] == $filter_type_sp->id) {
+                $sp_filters = true;
+            }
+            if($filter["filter_type"] == $filter_type_loc->id) {
+                $sp_filters = true;
+            }
+        }
+        if($sp_filters){
+            $select_value = $groupBy.", Centre, StartDateYear, ";
             if(empty($aol_filters)){
                 $select_value .=  "SUM(FamilyLaw + CivilLaw +  CriminalLaw) as Total";
             } else {
@@ -345,6 +414,36 @@ class SearchController extends Controller
         }
         foreach ($temps as $key => $temp) {
             $result['Providers'][]=$temp;
+        }
+        return $result;
+    }
+    private function createTableData($data_view, $groupBy){
+        $result=[];
+        $total = 0;
+        $temp_result=[];
+        foreach ($data_view as $key => $row) {
+            $result['years'][$row['StartDateYear']]=$row['StartDateYear'];
+            if(!isset($temp_result['location'][$row[$groupBy]])){
+                $temp_result['location'][$row[$groupBy]] = SA2::find($row[$groupBy])->SA2;
+            }
+            if(!isset($temp_result['centre'][$row['Centre']])){
+                $temp_result['centre'][$row['Centre']] = Centre::find($row["Centre"])->Centre;
+            }
+            $result['data'][$temp_result['location'][$row[$groupBy]]][$temp_result['centre'][$row['Centre']]][$row['StartDateYear']] = $row['Total'];
+         
+            $total = $total + $row['Total'];
+        }
+        $result['total'] = $total;
+        //TODO: try to improve this triple for each.
+        foreach ($result['data'] as $keyl => $location) {
+            foreach ($location as $keyc => $centre) {
+                foreach ($result['years'] as $keyy => $year) {
+                    if( !isset( $result['data'][$keyl][$keyc][$keyy] ) ){
+                        $result['data'][$keyl][$keyc][$keyy] = "0";
+                    }
+                }
+            }
+
         }
         return $result;
     }

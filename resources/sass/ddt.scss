@@ -309,3 +309,22 @@ li.ti-tag.ti-valid div.ti-actions i.ti-icon-close{
     color: $ddt-red;
 }
 
+.sploc-table{
+    border-color:gray;
+    border-style:solid;
+    border-width:1px;
+}
+
+.sploc-table thead th{
+    border-color:gray;
+    border-style:solid;
+    border-width:1px;
+}
+
+.sploc-table tbody td{
+    border:1px solid gray;
+}
+
+.sploc-table thead .table-red{
+    color: $ddt-red;
+}
