@@ -328,3 +328,9 @@ li.ti-tag.ti-valid div.ti-actions i.ti-icon-close{
 .sploc-table thead .table-red{
     color: $ddt-red;
 }
+.export-data-button{
+    background: $ddt-red;
+    color: white;
+    float: right;
+    padding-top: 5px;
+}

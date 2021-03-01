@@ -59,7 +59,6 @@ export default {
 					}
                 })
                 .catch(error => {
-                    console.log(error);
                     this.$swal({
                             title: 'Oops...',
                             icon: 'error',

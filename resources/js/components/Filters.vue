@@ -132,13 +132,7 @@
                             let params = [val, "SA2"];
                             axios.post(url, params )
                             .then((response)=>{
-                                //EventBus.$emit("TABLE", response.data);
-                                console.log(response.data);
                                 self.table_graph = response.data;
-                                //Array.prototype.forEach.call(self.table_graph.data, locations => {
-                                //    console.log(locations);
-                                //});
-
                             })
                             .catch(error => {
                                 if (typeof error.response.data === 'object') {

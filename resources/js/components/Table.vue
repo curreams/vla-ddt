@@ -3,7 +3,7 @@
         <b-button @click="changeVisible" class="graph-button-section">View table</b-button>
         <div class="row" v-if="visible">
             <div class="col" >
-                <table class="sploc-table">
+                <table id="graphtable" class="sploc-table">
                     <thead>
                         <tr>
                             <th></th>
@@ -24,7 +24,7 @@
                     <tbody>
                         <template v-for="(providers, loc_name) in table_graph.data" >
                             <tr v-for="(provider, p_name) in providers" :key="p_name + (Math.random()*1000)">
-                                <td v-if="isfirstIndex(providers, p_name)" :rowspan="getProviders(providers, true)">{{loc_name}}</td>
+                                <td v-if="isfirstIndex(providers, p_name)" :rowspan="getProvidersLength(providers)">{{loc_name}}</td>
                                 <td>{{p_name}}</td>
                                 <template v-for="(total, y_name) in provider">
                                     <td :key="y_name + (Math.random()*1000)" >{{total}}</td>
@@ -36,6 +36,13 @@
                 </table>
             </div>
         </div>
+        <br>
+        <div class="row" v-if="visible">
+            <div class="col" >
+                <b-button @click="exportTable()" class="export-data-button">Export data</b-button>
+            </div>
+        </div>
+
 
 
     </div>
@@ -44,6 +51,7 @@
 <script>
 
     import EventBus from '../utils/event-bus';
+    import TableExport from 'tableexport';
     export default {
         components: {},
         data() {
@@ -70,19 +78,13 @@
                 }
                 return result;
             },
-            getProviders(providers, consult_length = false){
+            getProvidersLength(providers){
                 var self =this;
                 let result = [];
                 let provider_names = Object.keys(providers);
-                if(consult_length){
-                    return provider_names.length;
-                }/*
-                provider_names.forEach(provider_name => {
-                    result.push(providers[provider_name]);
-                });
-                console.log("getP",typeof(result));*/
-                result["juego"]= "juego";
-                return result;
+                return provider_names.length;
+
+
             },
             isfirstIndex(providers, p_name){
                 var self =this;
@@ -90,7 +92,6 @@
                 let provider_names = Object.keys(providers);
                 if(provider_names){
                     if(provider_names[0].localeCompare(p_name) == 0){
-                        console.log("Entrando aca" + p_name );
                         return true;
                     }
                 }
@@ -108,6 +109,23 @@
             },
             roundNumber(number){
                 return number.toFixed(2)
+            },
+            exportTable(){
+                var self = this;
+                let table = TableExport(document.getElementById("graphtable"), {
+                    headers: true,                      // (Boolean), display table headers (th or td elements) in the <thead>, (default: true)
+                    footers: false,                      // (Boolean), display table footers (th or td elements) in the <tfoot>, (default: false)
+                    formats: ["xlsx"],    // (String[]), filetype(s) for the export, (default: ['xlsx', 'csv', 'txt'])
+                    filename: "VLA_DDT_Data_export",                     // (id, String), filename for the downloaded file, (default: 'id')
+                    bootstrap: true,                   // (Boolean), style buttons using bootstrap, (default: true)
+                    exportButtons: false,                // (Boolean), automatically generate the built-in export buttons for each of the specified formats (default: true)
+                    position: "bottom",                 // (top, bottom), position of the caption element relative to table, (default: 'bottom')
+                    trimWhitespace: true,               // (Boolean), remove all leading/trailing newlines, spaces, and tabs from cell text in the exported file(s) (default: false)
+                    sheetname: "DDT"                     // (id, String), sheet name for the exported spreadsheet, (default: 'id')
+                });
+                let export_data = table.getExportData();
+                let xlsxData = export_data.graphtable.xlsx;
+                table.export2file(xlsxData.data, xlsxData.mimeType, xlsxData.filename, xlsxData.fileExtension, xlsxData.merges, xlsxData.RTL, xlsxData.sheetname);
             }
         },
         computed: {

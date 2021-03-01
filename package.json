@@ -10,7 +10,7 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "axios": "^0.19",
+        "axios": "^0.21.1",
         "bootstrap": "^4.5.2",
         "bp-vuejs-dropdown": "^2.1.1",
         "cross-env": "^7.0",
@@ -33,8 +33,10 @@
         "@johmun/vue-tags-input": "^2.1.0",
         "@svg-maps/australia": "^1.1.1",
         "bootstrap-vue": "^2.16.0",
+        "file-saverjs": "^1.3.6",
         "leaflet": "^1.7.1",
         "sweetalert2": "^10.13.0",
+        "tableexport": "^5.2.0",
         "vue-multiselect": "^2.1.6",
         "vue-svg-map": "^1.2.0",
         "vue-sweetalert2": "^3.0.8",
