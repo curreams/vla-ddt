@@ -78,6 +78,30 @@ Route::group(
     }
 );
 
+// NLAS
+Route::group(
+    [
+    'middleware' => ['auth'],
+    'prefix' => 'nlas'
+],
+    function () {
+        Route::post('/getnlasmapdata', 'NLASController@getNLASMapData')
+        ->name('nlas.getnlasmapdata');
+    }
+);
+
+// Priority Group
+Route::group(
+    [
+    'middleware' => ['auth'],
+    'prefix' => 'priority'
+],
+    function () {
+        Route::post('/getprioritymapdata', 'PriorityController@getNLASMapData')
+        ->name('priority.getprioritymapdata');
+    }
+);
+
 // Filter
 Route::group(
     [

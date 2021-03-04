@@ -334,3 +334,25 @@ li.ti-tag.ti-valid div.ti-actions i.ti-icon-close{
     float: right;
     padding-top: 5px;
 }
+
+
+.font-size-medium{
+    font-size: medium;
+}
+
+
+.nlas-priority-multiselect{
+    width: 50%;
+}
+@media screen and (max-width: 992px) {
+    .nlas-priority-multiselect{
+        width: 100%;
+    }
+}
+
+div.multiselect.nlas-priority-multiselect.col-md-6.multiselect--active{
+    z-index: 9999;
+}
+
+
+

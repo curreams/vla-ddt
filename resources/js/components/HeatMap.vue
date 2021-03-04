@@ -202,10 +202,10 @@ export default {
 					feature.properties.client_count = "No data";
 				}
 				layer.bindTooltip(
-					"<div>Name:" +
+					"<div><span style='color:#971a4b;font-weight: bold'>" +
 					feature.properties.sa2_name +
-					"</div> Clients:" +
-					feature.properties.client_count,
+					"</span></div>" +
+					feature.properties.client_count +  " clients",
 					{ permanent: false, sticky: true }
 				);
 				layer.on('click', (event) =>{

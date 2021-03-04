@@ -17,8 +17,17 @@
         </div>
     </div>
 </div>
+<div id="nlas_priority" class="page-footer ddt-footer pt-3">
+    <div class="container">
+        <div class="row justify-content-center">
+            <nlaspriority></nlaspriority>
+        </div>
+    </div>
+
+</div>
     @endsection
 @section('scripts')
 <script src="/js/main.js?id={{ str_random(6) }}"></script>
+<script src="/js/nlas_priority.js?id={{ str_random(6) }}"></script>
 @endsection
 

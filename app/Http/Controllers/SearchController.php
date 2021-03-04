@@ -40,7 +40,7 @@ class SearchController extends Controller
     {
         ini_set('memory_limit', -1);
         try {
-            $params = $request->all();
+            $params = $request->input();
             $filters = $params[0];
             $snapshot = $params[1];
             if(count($filters) > 0 ){
