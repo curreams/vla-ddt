@@ -16,7 +16,7 @@
 						legal problems because of vulnerability and/or disadvantage
 					</p>
 					<p>The demographic data on priority groups is captured in the Australian Bureau of
-						Statistics Cencus 2016
+						Statistics Census 2016
 					</p>
 					<b-button @click="changeVisiblePriority" class="font-size-medium graph-button-section">View priority group data for region of interest</b-button>
 				</div>
@@ -26,7 +26,7 @@
 			<nlasmap></nlasmap>
 		</div>
 		<div class="main-div" v-if="visible_priority">
-
+			<prioritymap></prioritymap>
 		</div>
 	</div>
 </template>

@@ -13,9 +13,9 @@ class NLASController extends Controller
         $json_data_geo = json_decode($json_geo,true);
         $features = $json_data_geo['features'];
 
-        $json_nlas = file_get_contents(storage_path() .'\geojson\lga_nlas.json');
+        $json_nlas = file_get_contents(storage_path() .'\geojson\lga_priority.json');
         $json_data_nlas = json_decode($json_nlas,true);
-        $nlaslga = $json_data_nlas['lga_nlas'];
+        $nlaslga = $json_data_nlas['lga_priority'];
         $length = count($features);
         for ($i=0; $i < $length ; $i++) {
             $key = array_search($features[$i]['properties']['lga_code'], array_column($nlaslga, 'lga_code'));
@@ -26,7 +26,7 @@ class NLASController extends Controller
 
         $json_data_geo['features'] = $features;
 
-        $fp = fopen(storage_path() .'\geojson\nlas_lga.geojson', 'w');
+        $fp = fopen(storage_path() .'\geojson\priority_lga.geojson', 'w');
         fwrite($fp, json_encode($json_data_geo));
         fclose($fp);
     }
@@ -40,7 +40,6 @@ class NLASController extends Controller
             $json_data_geo['total'] = self::getIndicatorTotal($indicator, $json_data_geo['features']);
             return $json_data_geo;
 
-            return self::constructTableData($filters, $groupBy);
         } catch (\Exception $e) {
             return $e->getMessage();
         }

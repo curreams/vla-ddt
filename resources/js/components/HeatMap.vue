@@ -2,9 +2,9 @@
 
 	<div class="contaniner">
 		<div>
-			<span v-if="loading">Loading...</span>
-			<br>
+			<span class="section-title">Legal Services</span>
 		</div>
+
 		<l-map
 			ref="map"
 			:zoom="zoom"

@@ -97,7 +97,7 @@ Route::group(
     'prefix' => 'priority'
 ],
     function () {
-        Route::post('/getprioritymapdata', 'PriorityController@getNLASMapData')
+        Route::post('/getprioritymapdata', 'PriorityController@getPriorityMapData')
         ->name('priority.getprioritymapdata');
     }
 );

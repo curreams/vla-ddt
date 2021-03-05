@@ -24,14 +24,14 @@
 						<th colspan="3" >
 							<strong>
 							<span v-if="property === ''" class="table-title">No NLAS indicator selected</span>
-							<span v-if="property !== ''" class="table-title">{{property}}</span>
+							<span v-if="property !== ''" class="table-title">{{property_name}}</span>
 							</strong>
 										<br>
-										<span class="table-title-client">Total client count <span v-if="map_data">{{map_data.total}}</span><span v-else>0</span></span></th>
+										<span class="table-title-client">Total people count <span v-if="map_data">{{map_data.total}}</span><span v-else>0</span></span></th>
 					</tr>
 					<tr v-if="location_display.length>0"  class="table-subtitle">
 						<th >LGA</th>
-						<th colspan="2">Client count</th>
+						<th colspan="2">People count</th>
 					</tr>
 					<tr v-if="location_display.length>0">
 						<th> </th>
@@ -108,6 +108,7 @@ export default {
 			all_map_data: [],
 			map_data:[],
 			property:"",
+			property_name:"",
 			location_display:[],
 			zoom: 7,
 			center: [-37.02100, 144.964600],
@@ -130,34 +131,34 @@ export default {
 			],
 			nlas_selected: {},
 			grades : [ {"value":"1000",
-						"color": "#74218f"},
+						"color": "#3e2241"},
 						{
 						"value":"500",
-						"color": "#8e28af"
+						"color": "#5e3461"
 						},
 						{
 						"value":"200",
-						"color": "#a830cf"
+						"color": "#7d4582"
 						},
 						{
 						"value":"100",
-						"color": "#b54fd6"
+						"color": "#9d57a3"
 						},
 						{
 						"value":"50",
-						"color": "#c36fde"
+						"color": "#b078b5"
 						},
 						{
 						"value":"20",
-						"color": "#d08fe5"
+						"color": "#c49ac7"
 						},
 						{
 						"value":"10",
-						"color": "#ddafed"
+						"color": "#d7bbda"
 						},
 						{
 						"value":"1",
-						"color": "#ebcff4"
+						"color": "#ebddec"
 						},
 						{
 						"value":"No data",
@@ -194,14 +195,14 @@ export default {
 			});
 		},
 		getColor(data){
-			return 	data > 1000 ? '#74218f' :
-					data > 500  ? '#8e28af' :
-					data > 200  ? '#a830cf' :
-					data > 100  ? '#b54fd6' :
-					data > 50   ? '#c36fde' :
-					data > 20   ? '#d08fe5' :
-					data > 10   ? '#ddafed' :
-					data >= 1   ? '#ebcff4' :
+			return 	data > 1000 ? '#3e2241' :
+					data > 500  ? '#5e3461' :
+					data > 200  ? '#7d4582' :
+					data > 100  ? '#9d57a3' :
+					data > 50   ? '#b078b5' :
+					data > 20   ? '#c49ac7' :
+					data > 10   ? '#d7bbda' :
+					data >= 1   ? '#ebddec' :
 					'#8a8884';
 		},
 		zoomFeature(event){
@@ -226,6 +227,7 @@ export default {
 			var self = this;
 			self.location_display=[];
 			self.property = self.nlas_selected.id;
+			self.property_name= self.nlas_selected.name;
 			self.map_visibility = true;
 			self.$refs.map_nlas.mapObject.fitBounds(self.map_bounds);
 			self.searchMapData();
@@ -274,7 +276,7 @@ export default {
 					"<div><span style='color:#971a4b;font-weight: bold'>" +
 					feature.properties.lga +
 					"</span></div>" +
-					feature.properties[self.property] +  " clients",
+					feature.properties[self.property] +  " people",
 					{ permanent: false, sticky: true }
 				);
 				layer.on('click', (event) =>{

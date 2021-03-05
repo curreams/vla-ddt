@@ -277,7 +277,7 @@ li.ti-tag.ti-valid div.ti-actions i.ti-icon-close{
     overflow:hidden;padding:5px 4px;word-break:normal;}
 .tg th{font-family:Arial, sans-serif;font-size:11px;
     font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-color{text-align:left;vertical-align:top}
+.tg .tg-color{text-align:left;vertical-align:top;opacity: 0.7;}
 .tg .tg-value{text-align:left;vertical-align:top}
 
 
@@ -354,5 +354,11 @@ div.multiselect.nlas-priority-multiselect.col-md-6.multiselect--active{
     z-index: 9999;
 }
 
-
+.section-title{
+    color: $ddt-red;
+    font-size: larger;
+    padding-top: 5px;
+    padding-right: 3px;
+    padding-bottom: 5px;
+}
 
