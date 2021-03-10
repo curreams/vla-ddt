@@ -73,6 +73,29 @@ class UsersSeeder extends Seeder
 
         $userAn->assignRole([$user_role->id]);
 
+        $userO = User::create([
+            'name' => 'Olivia Bakyew',
+            'email' => 'olivia.bakyew@vla.vic.gov.au',
+            'password' => bcrypt('VLADDT2021')
+        ]);
+
+        $userO->assignRole([$user_role->id]);
+
+        $userT = User::create([
+            'name' => 'Tilda Hum',
+            'email' => 'tilda.hum@vla.vic.gov.au',
+            'password' => bcrypt('VLADDT2021')
+        ]);
+
+        $userT->assignRole([$user_role->id]);
+
+        $userAm = User::create([
+            'name' => 'Amy Schwebel',
+            'email' => 'amy.schwebel@vla.vic.gov.au',
+            'password' => bcrypt('VLADDT2021')
+        ]);
+
+        $userAm->assignRole([$user_role->id]);
 
     }
 }

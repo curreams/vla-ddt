@@ -1,7 +1,18 @@
 <template>
     <div class="container">
         <b-button @click="changeVisible" class="graph-button-section">View table</b-button>
-        <div class="row" v-if="visible">
+        <div class="card text-center" v-if="visible && table_graph.length < 1">
+            <div class="card-body">
+                <h5 class="card-title ddt-title">Nothing to display yet</h5>
+                <p class="card-text">Select a location or service provider filter to display the table information.</p>
+            </div>
+        </div>
+        <div v-if="visible && Object.keys(table_graph).length > 0">
+			<span class="bold">Clients serviced by location and service provider</span>
+			<br>
+			<span>The table displays the client count in {{location_text}} {{sp_text}}. The data is filtered by {{aol_text}} {{demographic_text}} {{date_text}}</span>
+		</div>
+        <div class="row" v-if="visible && Object.keys(table_graph).length > 0">
             <div class="col" >
                 <table id="graphtable" class="sploc-table">
                     <thead>
@@ -37,7 +48,7 @@
             </div>
         </div>
         <br>
-        <div class="row" v-if="visible">
+        <div class="row" v-if="visible && Object.keys(table_graph).length > 0">
             <div class="col" >
                 <b-button @click="exportTable()" class="export-data-button">Export data</b-button>
             </div>
@@ -57,6 +68,7 @@
         data() {
             return {
                 visible:false,
+                providers_name: "",
 
             };
         },
@@ -126,6 +138,12 @@
                 let export_data = table.getExportData();
                 let xlsxData = export_data.graphtable.xlsx;
                 table.export2file(xlsxData.data, xlsxData.mimeType, xlsxData.filename, xlsxData.fileExtension, xlsxData.merges, xlsxData.RTL, xlsxData.sheetname);
+            },
+            getProvidersName(){
+                var self = this;
+                if(self.table_graph.data){
+
+                }
             }
         },
         computed: {
@@ -135,6 +153,31 @@
                 },
                 set(value){
                     this.$store.commit("update_table_graph",value);
+                }
+            },
+            location_text:{
+                get(){
+                    return this.$store.getters.location_text;
+                }
+            },
+            sp_text:{
+                get(){
+                    return this.$store.getters.sp_text;
+                }
+            },
+            aol_text:{
+                get(){
+                    return this.$store.getters.aol_text;
+                }
+            },
+            demographic_text:{
+                get(){
+                    return this.$store.getters.demographic_text;
+                }
+            },
+            date_text:{
+                get(){
+                    return this.$store.getters.date_text;
                 }
             },
         },

@@ -186,20 +186,21 @@ class SearchController extends Controller
         $where_values = self::getWhereValue($filters, $filter_type_aol);
         $where_values = self::evaluateYearWhere($where_values);
         $select_values = self::getSelectValueLineBarChart($filters,$filter_type_aol);
-        $years = $where_values['StartDate'];
+        $years = $where_values['StartDateYear'];
         $data_view = new DataView;
-        $data_view = $data_view->selectRaw($select_values)
-        ->whereRaw("YEAR(StartDate) = YEAR(EndDate)");
+        $data_view = $data_view->selectRaw($select_values);
 
         foreach ($where_values as $key => $where_value) {
             $data_view = $data_view->whereIn($key, $where_value );
         }
 
         $data_view = $data_view ->groupBy("Centre" , "StartDateYear" )
+                                ->orderBy("Centre")
                                 ->orderBy("StartDateYear")
-                                ->get();
+                                ->get()
+                                ->toArray();
 
-        $datasets = self::createBarLineCharDataSet($data_view);
+        $datasets = self::createBarLineCharDataSet($data_view,$years);
         $result["labels"] = $years;
         $result["datasets"] = $datasets;
 
@@ -239,9 +240,9 @@ class SearchController extends Controller
     }
 
     private function evaluateYearWhere($where_values){
-        if(!array_key_exists ( "StartDate", $where_values )){
-            $filters = Filter::where('table_header','=','StartDate')->pluck('value')->toArray();
-            $where_values["StartDate"]= $filters;
+        if(!array_key_exists ( "StartDateYear", $where_values )){
+            $filters = Filter::where('table_header','=','StartDateYear')->pluck('value')->toArray();
+            $where_values["StartDateYear"]= $filters;
         }
         return $where_values;
 
@@ -272,7 +273,7 @@ class SearchController extends Controller
             }
         }
         if(empty($aol_filters)){
-            $select_value .=  "SUM(FamilyLaw + CivilLaw +  CriminalLaw) as Total";
+            $select_value .=  "SUM(FamilyLaw + CivilLaw + CriminalLaw) as Total";
         } else {
             $select_value .= "SUM(" .implode(" + ", $aol_filters). ") as Total";
         }
@@ -344,15 +345,18 @@ class SearchController extends Controller
         return $select_value;
     }
 
-    private function createBarLineCharDataSet($dataView)
+    private function createBarLineCharDataSet($dataView, $years)
     {
         $result = [];
         $temps = [];
         foreach ($dataView as $key => $row) {
             if(!isset($temps[$row["Centre"]]["label"])){
                 $temps[$row["Centre"]]["label"] = Centre::find($row["Centre"])->Centre;
+                $temps[$row["Centre"]]["data"]= array_fill(0, count($years), 0);
             }
-            $temps[$row["Centre"]]["data"][] =  intval($row["Total"]);
+            $year_index =  array_search($row["StartDateYear"], $years);
+            $temps[$row["Centre"]]["data"][$year_index] =  intval($row["Total"]);
+
         }
         foreach ($temps as $key => $temp) {
             $result[]=$temp;

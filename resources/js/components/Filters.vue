@@ -178,6 +178,72 @@
                     self.hideLoader();
                 });
             },
+            changeTitleText(active_filters){
+                var self = this;
+                self.location_text = "";
+                self.sp_text = "";
+                self.aol_text = "family law, civil law, criminal law";
+                self.demographic_text = "";
+                self.date_text = "";
+                let location_text = [];
+                let sp_text = [];
+                let aol_text = [];
+                let demographic_text = [];
+                let date_text = [];
+                Array.prototype.forEach.call(active_filters, active_filter => {
+                    //Location
+                    if(active_filter.filter_type == 1){
+                        location_text.push(active_filter.value);
+                    }
+                    //Service provicer
+                    if(active_filter.filter_type == 2){
+                        sp_text.push(active_filter.value)
+                    }
+                    //Area of law
+                    if(active_filter.filter_type == 3){
+                        aol_text.push(active_filter.value.toLowerCase())
+                    }
+                    // Demographic
+                    if(active_filter.filter_type == 4){
+                        let demographic = ""
+                        demographic = active_filter.table_header.toLowerCase();
+                        if(active_filter.table_header == "DisabilityMental"){
+                            demographic = "disability and/or mental health";
+                        }
+                        if(active_filter.table_header == "Indigenous"){
+                            demographic = "aboriginal and/or Torres Strait islander";
+                        }
+                        if(active_filter.table_header == "FinancialDisadvantage"){
+                            demographic = "financial disadvantage";
+                        }
+                        if(active_filter.table_header == "LOTE"){
+                            demographic = "language other than English";
+                        }
+                        demographic_text.push(demographic);
+                    }
+                    // Date
+                    if(active_filter.filter_type == 5){
+                        date_text.push(active_filter.value);
+                    }
+                });
+                self.location_text = location_text.join(", ");
+                if(location_text.length == 0){
+                    self.location_text = "all SA2s";
+                }
+                if(sp_text.length != 0){
+                    self.sp_text = "for " + sp_text.length + " service provider(s) - " + sp_text.join(", ");
+                }
+                if(aol_text.length != 0){
+                    self.aol_text = aol_text.join(", ");
+                }
+                if(demographic_text.length != 0){
+                    self.demographic_text = "and client " + Array.from(new Set(demographic_text)).join(", ");
+                }
+                if(date_text.length != 0){
+                    self.date_text = "in " + date_text.join(", ");
+                }
+
+            },
             loadSearchListener(){
                 var self = this;
                 EventBus.$on('SEARCH', (data) => {
@@ -215,6 +281,8 @@
                 var self = this;
                 self.searchMapData(val);
                 self.searchData(val);
+                self.changeTitleText(val);
+
             }
         },
         computed:{
@@ -259,6 +327,46 @@
                 },
                 set(value){
                     this.$store.commit("update_table_graph",value);
+                }
+            },
+            location_text:{
+                get(){
+                    return this.$store.getters.location_text;
+                },
+                set(value){
+                    this.$store.commit("update_location_text",value);
+                }
+            },
+            sp_text:{
+                get(){
+                    return this.$store.getters.sp_text;
+                },
+                set(value){
+                    this.$store.commit("update_sp_text",value);
+                }
+            },
+            aol_text:{
+                get(){
+                    return this.$store.getters.aol_text;
+                },
+                set(value){
+                    this.$store.commit("update_aol_text",value);
+                }
+            },
+            demographic_text:{
+                get(){
+                    return this.$store.getters.demographic_text;
+                },
+                set(value){
+                    this.$store.commit("update_demographic_text",value);
+                }
+            },
+            date_text:{
+                get(){
+                    return this.$store.getters.date_text;
+                },
+                set(value){
+                    this.$store.commit("update_date_text",value);
                 }
             },
         },

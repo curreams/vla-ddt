@@ -601,7 +601,7 @@ class CreateFiltersSeeder extends Seeder
             $filter = [
                 'name' => $key . "-" . $year->year_value,
                 'table' => "",
-                'table_header' => "StartDate",
+                'table_header' => "StartDateYear",
                 'surrogate_key' => $year->year_value,
                 'value' => $year->year_value,
                 'description' => 'Year '. $year->year_value,

@@ -29,6 +29,11 @@ const store = new Vuex.Store({
         location_display: [],
         providers: [],
         table_graph: [],
+        location_text:"all SA2s",
+        sp_text:"",
+        aol_text:"family law, civil law, criminal law",
+        demographic_text:"",
+        date_text:""
     },
     mutations:{
         add_active_charts(state, payload){
@@ -88,6 +93,24 @@ const store = new Vuex.Store({
         update_table_graph(state, table){
             state.table_graph = table
         },
+        update_table_graph(state, table){
+            state.table_graph = table
+        },
+        update_location_text(state, text){
+            state.location_text = text
+        },
+        update_sp_text(state, text){
+            state.sp_text = text
+        },
+        update_aol_text(state, text){
+            state.aol_text = text
+        },
+        update_demographic_text(state, text){
+            state.demographic_text = text
+        },
+        update_date_text(state, text){
+            state.date_text = text
+        },
     },
     actions:{
 
@@ -116,6 +139,21 @@ const store = new Vuex.Store({
         },
         table_graph(state){
             return state.table_graph;
+        },
+        location_text(state){
+            return state.location_text;
+        },
+        sp_text(state){
+            return state.sp_text;
+        },
+        aol_text(state){
+            return state.aol_text;
+        },
+        demographic_text(state){
+            return state.demographic_text;
+        },
+        date_text(state){
+            return state.date_text;
         }
     }
 

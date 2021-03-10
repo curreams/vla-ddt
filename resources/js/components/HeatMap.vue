@@ -3,6 +3,10 @@
 	<div class="contaniner">
 		<div>
 			<span class="section-title">Legal Services</span>
+			<br>
+			<span class="bold">Clients serviced by location and service provider</span>
+			<br>
+			<span>The map displays the client count in {{location_text}} {{sp_text}}. The data is filtered by {{aol_text}} {{demographic_text}} {{date_text}}</span>
 		</div>
 
 		<l-map
@@ -241,7 +245,33 @@ export default {
 			set(value){
 				this.$store.commit("add_providers",value);
 			}
-		}
+		},
+		location_text:{
+			get(){
+				return this.$store.getters.location_text;
+			}
+		},
+		sp_text:{
+			get(){
+				return this.$store.getters.sp_text;
+			}
+		},
+		aol_text:{
+			get(){
+				return this.$store.getters.aol_text;
+			}
+		},
+		demographic_text:{
+			get(){
+				return this.$store.getters.demographic_text;
+			}
+		},
+		date_text:{
+			get(){
+				return this.$store.getters.date_text;
+			}
+		},
+
 	},
 	async created() {
 /*
