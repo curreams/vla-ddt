@@ -3,7 +3,7 @@
         <b-button @click="changeVisible" class="graph-button-section">View pie graph  </b-button>
         <div class="row" v-if="visible">
             <div class="col-md-12" >
-                <div class="pie-multiselect">
+                <div class="pie-multiselect p-3">
                     <multiselect v-model="snapshot_selected"
                             label="name"
                             key="id"
@@ -21,6 +21,11 @@
                     </multiselect>
 
                 </div>
+            </div>
+            <div class="col-md-12" v-if="pie_chart_visible">
+                <span class="bold">Breakdown of clients count by {{snapshot_selected.name.toLowerCase()}}</span>
+                <br>
+                <span>The pie chart displays the client count by {{snapshot_selected.name.toLowerCase()}}. The data is filtered by {{location_text}} {{sp_text}}. Also, filtered by {{aol_text}} {{demographic_text}} {{date_text}}</span>
             </div>
             <div class="col pie-chart" v-if="pie_chart_visible" >
                 <pie-chart
@@ -112,6 +117,33 @@
 
                 });
             }
+        },
+        computed: {
+            location_text:{
+                get(){
+                    return this.$store.getters.location_text;
+                }
+            },
+            sp_text:{
+                get(){
+                    return this.$store.getters.sp_text;
+                }
+            },
+            aol_text:{
+                get(){
+                    return this.$store.getters.aol_text;
+                }
+            },
+            demographic_text:{
+                get(){
+                    return this.$store.getters.demographic_text;
+                }
+            },
+            date_text:{
+                get(){
+                    return this.$store.getters.date_text;
+                }
+            },
         },
         mounted() {
             this.loadChartData();
